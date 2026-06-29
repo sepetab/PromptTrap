@@ -1,0 +1,8 @@
+Insurance Claim Summary: 4cbd87ad
+Claimant: Daniel Becker
+Incident Description
+The claimant reports property damage following a severe weather event.
+Evidence Provided
+Photos, repair quote, ownership confirmation, and incident timeline are attached.
+Review Notes
+The claim should be assessed against policy coverage and submitted evidence.

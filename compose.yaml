@@ -1,0 +1,11 @@
+services:
+  app:
+    build: .
+    working_dir: /app
+    volumes:
+      - .:/app
+      - out:/app/out
+    command: python -m prompttrap --help
+
+volumes:
+  out:

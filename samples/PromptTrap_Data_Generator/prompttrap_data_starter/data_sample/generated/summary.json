@@ -1,0 +1,20 @@
+{
+  "clean_count": 8,
+  "attacked_count": 16,
+  "total": 24,
+  "formats": [
+    "pdf",
+    "docx",
+    "html",
+    "txt"
+  ],
+  "doc_types": [
+    "resume",
+    "rfp",
+    "grant",
+    "claim",
+    "vendor"
+  ],
+  "manifest": "data_sample/generated/manifest.jsonl",
+  "note": "Synthetic test data only. Do not use for real decisions."
+}
