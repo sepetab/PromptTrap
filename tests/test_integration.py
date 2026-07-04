@@ -16,6 +16,9 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 GEN = ROOT / "samples" / "PromptTrap_Data_Generator" / "prompttrap_data_starter" / "data_sample" / "generated"
 
 ALL_TXT = list((GEN / "attacked").glob("*.txt")) + list((GEN / "clean").glob("*.txt"))
+ALL_PDF = list((GEN / "attacked").glob("*.pdf")) + list((GEN / "clean").glob("*.pdf"))
+ATTACKED_PDF = list((GEN / "attacked").glob("*.pdf"))
+CLEAN_PDF = list((GEN / "clean").glob("*.pdf"))
 
 
 class IntegrationTests(unittest.TestCase):
@@ -48,11 +51,57 @@ class IntegrationTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as td:
             out = pathlib.Path(td)
             jp = write_json_report(result, out)
-            hp = write_html_report(result, out)
+            write_html_report(result, out)
             sp = write_safe_outputs(result, out)
             report = json.loads(jp.read_text(encoding="utf-8"))
             self.assertTrue(report["issues"])
             # re-scan safe text -> must be clean
+            safe = sp["safe_text"].read_text(encoding="utf-8")
+            rescan = TXTScanner().scan_text(safe)
+            self.assertEqual(rescan.issues, [])
+
+
+class PDFIntegrationTests(unittest.TestCase):
+    def test_all_pdf_files_scannable(self):
+        self.assertGreater(len(ALL_PDF), 0)
+        for f in ALL_PDF:
+            with self.subTest(file=f.name):
+                result = run_scan(f)
+                self.assertTrue(result.sha256)
+                self.assertEqual(result.file_type, "application/pdf")
+
+    def test_all_attacked_pdf_detected(self):
+        self.assertGreater(len(ATTACKED_PDF), 0)
+        for f in ATTACKED_PDF:
+            with self.subTest(file=f.name):
+                result = run_scan(f)
+                self.assertTrue(result.issues, f"missed attack: {f.name}")
+
+    def test_all_clean_pdf_no_false_positive(self):
+        self.assertGreater(len(CLEAN_PDF), 0)
+        for f in CLEAN_PDF:
+            with self.subTest(file=f.name):
+                result = run_scan(f)
+                self.assertFalse(result.issues, f"false positive: {f.name}")
+
+    def test_white_text_pdf_visible_excludes_payload(self):
+        f = GEN / "attacked" / "attacked_0001_resume_pdf_white_text.pdf"
+        result = run_scan(f)
+        self.assertIn("ST-PDF-HIDDEN-TEXT-WHITE", result.issue_codes)
+        self.assertIn("TEST PAYLOAD", result.extracted_text)
+        self.assertNotIn("TEST PAYLOAD", result.visible_text)
+
+    def test_offpage_pdf_detected(self):
+        f = GEN / "attacked" / "attacked_0009_claim_pdf_offpage_text.pdf"
+        result = run_scan(f)
+        self.assertIn("ST-PDF-OFFPAGE-TEXT", result.issue_codes)
+
+    def test_pdf_end_to_end_leakage_zero(self):
+        f = GEN / "attacked" / "attacked_0001_resume_pdf_white_text.pdf"
+        result = run_scan(f)
+        with tempfile.TemporaryDirectory() as td:
+            out = pathlib.Path(td)
+            sp = write_safe_outputs(result, out)
             safe = sp["safe_text"].read_text(encoding="utf-8")
             rescan = TXTScanner().scan_text(safe)
             self.assertEqual(rescan.issues, [])

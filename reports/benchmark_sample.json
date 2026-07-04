@@ -1,0 +1,132 @@
+{
+  "total": 24,
+  "scored": 12,
+  "true_positives": 8,
+  "false_positives": 0,
+  "false_negatives": 0,
+  "true_negatives": 4,
+  "crashes": 12,
+  "recall": 1.0,
+  "false_positive_rate": 0.0,
+  "sanitization_leakage": 0,
+  "preservation": 0.9283,
+  "crash_rate": 0.5,
+  "avg_processing_ms": 147.79,
+  "per_case": [
+    {
+      "case_id": "clean_0001",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0002",
+      "error": "No scanner registered for extension: .docx"
+    },
+    {
+      "case_id": "clean_0003",
+      "error": "No scanner registered for extension: .html"
+    },
+    {
+      "case_id": "clean_0004",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0005",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0006",
+      "error": "No scanner registered for extension: .docx"
+    },
+    {
+      "case_id": "clean_0007",
+      "error": "No scanner registered for extension: .html"
+    },
+    {
+      "case_id": "clean_0008",
+      "detected": []
+    },
+    {
+      "case_id": "attacked_0001",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION",
+        "ST-PDF-HIDDEN-TEXT-WHITE"
+      ]
+    },
+    {
+      "case_id": "attacked_0002",
+      "error": "No scanner registered for extension: .docx"
+    },
+    {
+      "case_id": "attacked_0003",
+      "error": "No scanner registered for extension: .html"
+    },
+    {
+      "case_id": "attacked_0004",
+      "detected": [
+        "ST-GEN-ZERO-WIDTH"
+      ]
+    },
+    {
+      "case_id": "attacked_0005",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION"
+      ]
+    },
+    {
+      "case_id": "attacked_0006",
+      "error": "No scanner registered for extension: .docx"
+    },
+    {
+      "case_id": "attacked_0007",
+      "error": "No scanner registered for extension: .html"
+    },
+    {
+      "case_id": "attacked_0008",
+      "detected": [
+        "ST-GEN-BASE64-INSTRUCTION"
+      ]
+    },
+    {
+      "case_id": "attacked_0009",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION",
+        "ST-PDF-OFFPAGE-TEXT"
+      ]
+    },
+    {
+      "case_id": "attacked_0010",
+      "error": "No scanner registered for extension: .docx"
+    },
+    {
+      "case_id": "attacked_0011",
+      "error": "No scanner registered for extension: .html"
+    },
+    {
+      "case_id": "attacked_0012",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION"
+      ]
+    },
+    {
+      "case_id": "attacked_0013",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION",
+        "ST-PDF-HIDDEN-TEXT-WHITE"
+      ]
+    },
+    {
+      "case_id": "attacked_0014",
+      "error": "No scanner registered for extension: .docx"
+    },
+    {
+      "case_id": "attacked_0015",
+      "error": "No scanner registered for extension: .html"
+    },
+    {
+      "case_id": "attacked_0016",
+      "detected": [
+        "ST-GEN-ZERO-WIDTH"
+      ]
+    }
+  ]
+}

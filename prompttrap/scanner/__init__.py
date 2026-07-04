@@ -4,10 +4,12 @@ from __future__ import annotations
 from pathlib import Path
 
 from prompttrap.scanner.base import BaseScanner, ScanResult
+from prompttrap.scanner.pdf import PDFScanner
 from prompttrap.scanner.txt import TXTScanner
 
 _SCANNERS: dict[str, type[BaseScanner]] = {
     ".txt": TXTScanner,
+    ".pdf": PDFScanner,
 }
 
 

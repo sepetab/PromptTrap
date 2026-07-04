@@ -58,7 +58,8 @@ class BaseScanner:
         raise NotImplementedError
 
     @staticmethod
-    def sha256_of(path: Path) -> str:
+    def sha256_of(path: Path | str) -> str:
+        path = Path(path)
         h = hashlib.sha256()
         with path.open("rb") as f:
             for chunk in iter(lambda: f.read(65536), b""):
@@ -66,7 +67,8 @@ class BaseScanner:
         return h.hexdigest()
 
     @staticmethod
-    def detect_type(path: Path) -> str:
+    def detect_type(path: Path | str) -> str:
+        path = Path(path)
         guess, _ = mimetypes.guess_type(str(path))
         if path.suffix.lower() == ".txt":
             return "text/plain"

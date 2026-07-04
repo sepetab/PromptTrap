@@ -55,6 +55,7 @@ class TXTScanner(BaseScanner):
     name = "txt"
 
     def scan(self, path: Path) -> ScanResult:
+        path = Path(path)
         start = time.perf_counter()
         sha = self.sha256_of(path)
         raw_bytes = path.read_bytes()

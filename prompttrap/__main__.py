@@ -10,7 +10,6 @@ from __future__ import annotations
 import argparse
 import json
 import sys
-import time
 from pathlib import Path
 
 from prompttrap.scanner import scan as run_scan

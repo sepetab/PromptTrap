@@ -10,7 +10,7 @@ from prompttrap.scanner import scan as run_scan
 from prompttrap.scanner.txt import TXTScanner
 from prompttrap.sanitizer.safe_text import safe_text
 from prompttrap.sanitizer.safe_payload import safe_payload, write_safe_outputs
-from prompttrap.reports.json_report import write_json_report, to_report_dict
+from prompttrap.reports.json_report import write_json_report
 from prompttrap.reports.html_report import write_html_report
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]

@@ -32,7 +32,6 @@ def run_benchmark(corpus_dir: Path) -> dict[str, Any]:
         if not doc_path.is_file():
             doc_path = corpus_dir / Path(rel).name
 
-        expected = entry.get("expected_issue_codes", []) or []
         expected_attack = entry.get("label") == "attacked"
 
         try:
@@ -66,11 +65,13 @@ def run_benchmark(corpus_dir: Path) -> dict[str, Any]:
             crashed += 1
             per_case.append({"case_id": entry.get("case_id"), "error": str(e)})
 
-    total = tp + fp + fn + tn
+    total_scored = tp + fp + fn + tn
+    total_cases = total_scored + crashed
     recall = tp / (tp + fn) if (tp + fn) else 0.0
     fp_rate = fp / (fp + tn) if (fp + tn) else 0.0
     return {
-        "total": total,
+        "total": total_cases,
+        "scored": total_scored,
         "true_positives": tp,
         "false_positives": fp,
         "false_negatives": fn,
@@ -82,7 +83,7 @@ def run_benchmark(corpus_dir: Path) -> dict[str, Any]:
         "preservation": round(sum(preservation_scores) / len(preservation_scores), 4)
         if preservation_scores
         else 0.0,
-        "crash_rate": round(crashed / total, 4) if total else 0.0,
+        "crash_rate": round(crashed / total_cases, 4) if total_cases else 0.0,
         "avg_processing_ms": round(sum(timings) / len(timings), 3) if timings else 0.0,
         "per_case": per_case,
     }
