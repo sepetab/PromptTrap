@@ -12,6 +12,7 @@ Detectors:
   * hidden runs (``<w:vanish/>`` run property)
   * prompt-like / base64 / zero-width payloads in document comments
   * prompt-like / base64 / zero-width payloads in headers and footers
+  * prompt-like / base64 / zero-width payloads in drawing alt text (descr/title)
   * prompt-like / base64 / zero-width payloads in core metadata (subject,
     comments, keywords)
   * general zero-width / base64 / prompt-like payloads in extracted text
@@ -32,6 +33,8 @@ from prompttrap.scanner.txt import TXTScanner
 # OOXML namespaces used by Word documents.
 _NS = {
     "w": "http://schemas.openxmlformats.org/wordprocessingml/2006/main",
+    "wp": "http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing",
+    "a": "http://schemas.openxmlformats.org/drawingml/2006/main",
     "cp": "http://schemas.openxmlformats.org/package/2006/metadata/core-properties",
     "dc": "http://purl.org/dc/elements/1.1/",
 }
@@ -71,6 +74,8 @@ class DOCXScanner(BaseScanner):
                 extracted_parts.append(body_text)
                 visible_parts.append(body_visible)
                 issues.extend(body_issues)
+                # Alt text on drawings in the document body.
+                issues.extend(self._scan_alt_text(doc_tree, "word/document.xml"))
 
             # Comments.
             issues.extend(self._scan_comments(z, names))
@@ -296,6 +301,9 @@ class DOCXScanner(BaseScanner):
                         location={"part": part},
                     )
                 )
+
+            # Alt text on drawings in headers/footers.
+            issues.extend(self._scan_alt_text(tree, part))
         return issues
 
     def _scan_metadata(self, metadata: dict[str, Any]) -> list[Issue]:
@@ -313,6 +321,33 @@ class DOCXScanner(BaseScanner):
                         location={"field": key},
                     )
                 )
+        return issues
+
+    def _scan_alt_text(self, tree: etree._ElementTree, part: str) -> list[Issue]:
+        """Scan drawing ``docPr`` elements for prompt-like / encoded payloads.
+
+        In OOXML, images and drawings carry alt text in ``<wp:docPr>``
+        elements via the ``descr`` (description) and ``title`` attributes.
+        These are invisible in the rendered document but machine-readable.
+        """
+        issues: list[Issue] = []
+        root = tree.getroot()
+        for di, doc_pr in enumerate(root.iter(f"{{{_NS['wp']}}}docPr")):
+            for attr_name in ("descr", "title"):
+                val = doc_pr.get(attr_name)
+                if not val or not val.strip():
+                    continue
+                general = TXTScanner().scan_text(val)
+                if general.issues:
+                    issues.append(
+                        Issue(
+                            code="ST-DOCX-ALT-TEXT-PROMPT",
+                            severity="high",
+                            message=f"Prompt-like / encoded payload in drawing alt-text '{attr_name}'.",
+                            evidence=val[:200],
+                            location={"part": part, "drawing_index": di, "attribute": attr_name},
+                        )
+                    )
         return issues
 
     @staticmethod
