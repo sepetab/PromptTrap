@@ -416,10 +416,10 @@ ISSUE_BY_ATTACK = {
     "docx_comment_prompt": ["ST-DOCX-COMMENT-PROMPT"],
     "docx_header_footer_prompt": ["ST-DOCX-HEADER-FOOTER-PROMPT"],
     "html_comment_prompt": ["ST-HTML-COMMENT-PROMPT"],
-    "html_display_none": ["ST-HTML-HIDDEN-ELEMENT"],
+    "html_display_none": ["ST-HTML-HIDDEN-DISPLAY"],
     "html_metadata_prompt": ["ST-HTML-METADATA-PROMPT"],
     "html_offscreen_text": ["ST-HTML-OFFSCREEN-TEXT"],
-    "html_white_text": ["ST-HTML-HIDDEN-ELEMENT"],
+    "html_white_text": ["ST-HTML-WHITE-TEXT"],
     "html_alt_text_prompt": ["ST-HTML-ALT-TEXT-PROMPT"],
     "zero_width_unicode": ["ST-GEN-ZERO-WIDTH"],
     "base64_instruction": ["ST-GEN-BASE64-INSTRUCTION"],
@@ -470,11 +470,13 @@ def generate(out_dir: Path, clean_count: int, attacked_count: int, seed: int) ->
             write_manifest_row(manifest, case)
             created.append(case)
 
+        attack_counter: dict[str, int] = {f: 0 for f in FORMATS}
         for i in range(attacked_count):
             doc_type = DOC_TYPES[i % len(DOC_TYPES)]
             fmt = FORMATS[i % len(FORMATS)]
             attacks = ATTACKS_BY_FORMAT[fmt]["attacks"]  # type: ignore[index]
-            attack_type = attacks[i % len(attacks)]  # type: ignore[index]
+            attack_type = attacks[attack_counter[fmt] % len(attacks)]  # type: ignore[index]
+            attack_counter[fmt] += 1
             payload = TEST_PAYLOADS[i % len(TEST_PAYLOADS)]
             body = make_body(doc_type)
             case_id = make_case_id("attacked", i + 1)

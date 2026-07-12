@@ -22,6 +22,9 @@ CLEAN_PDF = list((GEN / "clean").glob("*.pdf"))
 ALL_DOCX = list((GEN / "attacked").glob("*.docx")) + list((GEN / "clean").glob("*.docx"))
 ATTACKED_DOCX = list((GEN / "attacked").glob("*.docx"))
 CLEAN_DOCX = list((GEN / "clean").glob("*.docx"))
+ALL_HTML = list((GEN / "attacked").glob("*.html")) + list((GEN / "clean").glob("*.html"))
+ATTACKED_HTML = list((GEN / "attacked").glob("*.html"))
+CLEAN_HTML = list((GEN / "clean").glob("*.html"))
 
 
 class IntegrationTests(unittest.TestCase):
@@ -148,6 +151,45 @@ class DOCXIntegrationTests(unittest.TestCase):
 
     def test_docx_end_to_end_leakage_zero(self):
         f = GEN / "attacked" / "attacked_0002_rfp_docx_tiny_text.docx"
+        result = run_scan(f)
+        with tempfile.TemporaryDirectory() as td:
+            out = pathlib.Path(td)
+            sp = write_safe_outputs(result, out)
+            safe = sp["safe_text"].read_text(encoding="utf-8")
+            rescan = TXTScanner().scan_text(safe)
+            self.assertEqual(rescan.issues, [])
+
+
+class HTMLIntegrationTests(unittest.TestCase):
+    def test_all_html_files_scannable(self):
+        self.assertGreater(len(ALL_HTML), 0)
+        for f in ALL_HTML:
+            with self.subTest(file=f.name):
+                result = run_scan(f)
+                self.assertTrue(result.sha256)
+                self.assertEqual(result.file_type, "text/html")
+
+    def test_all_attacked_html_detected(self):
+        self.assertGreater(len(ATTACKED_HTML), 0)
+        for f in ATTACKED_HTML:
+            with self.subTest(file=f.name):
+                result = run_scan(f)
+                self.assertTrue(result.issues, f"missed attack: {f.name}")
+
+    def test_all_clean_html_no_false_positive(self):
+        self.assertGreater(len(CLEAN_HTML), 0)
+        for f in CLEAN_HTML:
+            with self.subTest(file=f.name):
+                result = run_scan(f)
+                self.assertFalse(result.issues, f"false positive: {f.name}")
+
+    def test_metadata_prompt_html_detected(self):
+        f = GEN / "attacked" / "attacked_0003_grant_html_metadata_prompt.html"
+        result = run_scan(f)
+        self.assertIn("ST-HTML-METADATA-PROMPT", result.issue_codes)
+
+    def test_html_end_to_end_leakage_zero(self):
+        f = GEN / "attacked" / "attacked_0003_grant_html_metadata_prompt.html"
         result = run_scan(f)
         with tempfile.TemporaryDirectory() as td:
             out = pathlib.Path(td)
