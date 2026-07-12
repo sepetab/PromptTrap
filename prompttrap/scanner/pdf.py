@@ -4,6 +4,7 @@ Detectors:
   * white / near-white text invisible against the page background
   * tiny text (font size below a threshold)
   * off-page text (drawn outside the page mediabox)
+  * prompt-like / base64 / zero-width payloads in PDF annotations
   * prompt-like / base64 / zero-width payloads embedded in document metadata
   * general zero-width / base64 / prompt-like payloads in extracted text
   * best-effort OCR-vs-extracted mismatch (skipped if tesseract unavailable)
@@ -61,6 +62,9 @@ class PDFScanner(BaseScanner):
                     visible_parts.append(line.text)
                 issues.extend(line.issues(width, height, page_index))
 
+            # Scan page annotations (sticky notes, free text, highlights, etc.)
+            issues.extend(self._scan_annotations(page, page_index))
+
         extracted_text = "\n".join(extracted_parts)
         visible_text = "\n".join(visible_parts)
 
@@ -116,6 +120,58 @@ class PDFScanner(BaseScanner):
                             message=f"Manipulation detected in PDF metadata field {key}: {issue.message}",
                             evidence=issue.evidence,
                             location={"field": key},
+                        )
+                    )
+        return issues
+
+    def _scan_annotations(self, page: Any, page_index: int) -> list[Issue]:
+        """Scan PDF annotations for prompt-like / encoded payloads.
+
+        PDF annotations (sticky notes, free text, highlights, etc.) can carry
+        hidden text in their ``/Contents``, ``/RC`` (rich content), and ``/T``
+        (title/author) fields. Each field is run through the TXT detectors.
+        """
+        issues: list[Issue] = []
+        annots = page.get("/Annots")
+        if not annots:
+            return issues
+
+        for ai, annot_ref in enumerate(annots):
+            try:
+                annot = annot_ref.get_object()
+            except Exception:
+                continue
+
+            subtype = str(annot.get("/Subtype", "")).lstrip("/")
+            fields = {
+                "Contents": annot.get("/Contents"),
+                "RC": annot.get("/RC"),
+                "T": annot.get("/T"),
+            }
+
+            for field_name, value in fields.items():
+                if value is None:
+                    continue
+                text = str(value)
+                if not text.strip():
+                    continue
+                general = TXTScanner().scan_text(text)
+                if general.issues:
+                    issues.append(
+                        Issue(
+                            code="ST-PDF-ANNOTATION-PROMPT",
+                            severity="high",
+                            message=(
+                                f"Prompt-like / encoded payload in PDF annotation "
+                                f"({subtype}) field /{field_name}."
+                            ),
+                            evidence=text[:200],
+                            location={
+                                "page": page_index,
+                                "annotation_index": ai,
+                                "subtype": subtype,
+                                "field": field_name,
+                            },
                         )
                     )
         return issues

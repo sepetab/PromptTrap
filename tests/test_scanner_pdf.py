@@ -143,6 +143,70 @@ class PDFScannerTests(unittest.TestCase):
         self.assertEqual(r1.issue_codes, r2.issue_codes)
         self.assertEqual(r1.sha256, r2.sha256)
 
+    def _add_annotation(self, path: pathlib.Path, contents: str, title: str = "Reviewer") -> pathlib.Path:
+        """Add a text annotation to a PDF and return the new path."""
+        from pypdf import PdfReader, PdfWriter
+        from pypdf.generic import ArrayObject, DictionaryObject, FloatObject, NameObject, TextStringObject
+
+        reader = PdfReader(str(path))
+        writer = PdfWriter()
+        page = writer.add_page(reader.pages[0])
+        annot = DictionaryObject({
+            NameObject("/Type"): NameObject("/Annot"),
+            NameObject("/Subtype"): NameObject("/Text"),
+            NameObject("/Rect"): ArrayObject([
+                FloatObject(72), FloatObject(700),
+                FloatObject(200), FloatObject(720),
+            ]),
+            NameObject("/Contents"): TextStringObject(contents),
+            NameObject("/T"): TextStringObject(title),
+        })
+        writer.add_annotation(page, annot)
+        out = path.with_suffix(".annot.pdf")
+        with out.open("wb") as f:
+            writer.write(f)
+        return out
+
+    def test_annotation_prompt_detected(self):
+        path = self._pdf()
+        annotated = self._add_annotation(path, PAYLOAD)
+        result = scan(annotated)
+        self.assertIn("ST-PDF-ANNOTATION-PROMPT", result.issue_codes)
+        annot_issues = [i for i in result.issues if i.code == "ST-PDF-ANNOTATION-PROMPT"]
+        self.assertEqual(len(annot_issues), 1)
+        self.assertEqual(annot_issues[0].location["subtype"], "Text")
+        self.assertEqual(annot_issues[0].location["field"], "Contents")
+
+    def test_annotation_title_prompt_detected(self):
+        """Payload in the /T (title/author) field must also be caught."""
+        path = self._pdf()
+        annotated = self._add_annotation(path, contents="Normal note", title=PAYLOAD)
+        result = scan(annotated)
+        self.assertIn("ST-PDF-ANNOTATION-PROMPT", result.issue_codes)
+        annot_issues = [i for i in result.issues if i.code == "ST-PDF-ANNOTATION-PROMPT"]
+        self.assertTrue(any(i.location["field"] == "T" for i in annot_issues))
+
+    def test_benign_annotation_no_false_positive(self):
+        """An annotation with normal text should not trigger an issue."""
+        path = self._pdf()
+        annotated = self._add_annotation(path, "Please review section 3.", title="Editor")
+        result = scan(annotated)
+        self.assertNotIn("ST-PDF-ANNOTATION-PROMPT", result.issue_codes)
+
+    def test_clean_pdf_no_annotation_issues(self):
+        path = self._pdf()
+        result = scan(path)
+        self.assertNotIn("ST-PDF-ANNOTATION-PROMPT", result.issue_codes)
+
+    def test_annotation_base64_detected(self):
+        import base64
+
+        path = self._pdf()
+        encoded = base64.b64encode(PAYLOAD.encode("utf-8")).decode("ascii")
+        annotated = self._add_annotation(path, encoded)
+        result = scan(annotated)
+        self.assertIn("ST-PDF-ANNOTATION-PROMPT", result.issue_codes)
+
 
 if __name__ == "__main__":
     unittest.main()
