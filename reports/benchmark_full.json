@@ -1,0 +1,1584 @@
+{
+  "total": 300,
+  "scored": 300,
+  "true_positives": 150,
+  "false_positives": 0,
+  "false_negatives": 0,
+  "true_negatives": 150,
+  "crashes": 0,
+  "recall": 1.0,
+  "false_positive_rate": 0.0,
+  "sanitization_leakage": 0,
+  "preservation": 0.9521,
+  "crash_rate": 0.0,
+  "avg_processing_ms": 66.432,
+  "per_case": [
+    {
+      "case_id": "clean_0001",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0002",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0003",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0004",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0005",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0006",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0007",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0008",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0009",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0010",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0011",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0012",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0013",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0014",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0015",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0016",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0017",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0018",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0019",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0020",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0021",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0022",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0023",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0024",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0025",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0026",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0027",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0028",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0029",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0030",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0031",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0032",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0033",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0034",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0035",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0036",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0037",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0038",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0039",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0040",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0041",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0042",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0043",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0044",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0045",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0046",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0047",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0048",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0049",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0050",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0051",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0052",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0053",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0054",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0055",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0056",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0057",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0058",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0059",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0060",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0061",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0062",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0063",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0064",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0065",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0066",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0067",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0068",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0069",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0070",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0071",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0072",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0073",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0074",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0075",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0076",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0077",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0078",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0079",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0080",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0081",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0082",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0083",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0084",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0085",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0086",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0087",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0088",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0089",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0090",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0091",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0092",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0093",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0094",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0095",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0096",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0097",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0098",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0099",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0100",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0101",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0102",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0103",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0104",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0105",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0106",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0107",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0108",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0109",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0110",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0111",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0112",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0113",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0114",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0115",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0116",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0117",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0118",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0119",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0120",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0121",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0122",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0123",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0124",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0125",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0126",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0127",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0128",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0129",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0130",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0131",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0132",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0133",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0134",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0135",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0136",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0137",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0138",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0139",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0140",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0141",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0142",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0143",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0144",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0145",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0146",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0147",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0148",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0149",
+      "detected": []
+    },
+    {
+      "case_id": "clean_0150",
+      "detected": []
+    },
+    {
+      "case_id": "attacked_0001",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION",
+        "ST-PDF-HIDDEN-TEXT-WHITE"
+      ]
+    },
+    {
+      "case_id": "attacked_0002",
+      "detected": [
+        "ST-DOCX-WHITE-TEXT",
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION"
+      ]
+    },
+    {
+      "case_id": "attacked_0003",
+      "detected": [
+        "ST-HTML-COMMENT-PROMPT"
+      ]
+    },
+    {
+      "case_id": "attacked_0004",
+      "detected": [
+        "ST-GEN-ZERO-WIDTH"
+      ]
+    },
+    {
+      "case_id": "attacked_0005",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION",
+        "ST-PDF-TINY-TEXT"
+      ]
+    },
+    {
+      "case_id": "attacked_0006",
+      "detected": [
+        "ST-DOCX-TINY-TEXT",
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION"
+      ]
+    },
+    {
+      "case_id": "attacked_0007",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION",
+        "ST-HTML-HIDDEN-DISPLAY"
+      ]
+    },
+    {
+      "case_id": "attacked_0008",
+      "detected": [
+        "ST-GEN-BASE64-INSTRUCTION"
+      ]
+    },
+    {
+      "case_id": "attacked_0009",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION",
+        "ST-PDF-OFFPAGE-TEXT"
+      ]
+    },
+    {
+      "case_id": "attacked_0010",
+      "detected": [
+        "ST-DOCX-METADATA-PROMPT"
+      ]
+    },
+    {
+      "case_id": "attacked_0011",
+      "detected": [
+        "ST-HTML-METADATA-PROMPT"
+      ]
+    },
+    {
+      "case_id": "attacked_0012",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION"
+      ]
+    },
+    {
+      "case_id": "attacked_0013",
+      "detected": [
+        "ST-PDF-METADATA-PROMPT"
+      ]
+    },
+    {
+      "case_id": "attacked_0014",
+      "detected": [
+        "ST-DOCX-COMMENT-PROMPT"
+      ]
+    },
+    {
+      "case_id": "attacked_0015",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION",
+        "ST-HTML-OFFSCREEN-TEXT"
+      ]
+    },
+    {
+      "case_id": "attacked_0016",
+      "detected": [
+        "ST-GEN-ZERO-WIDTH"
+      ]
+    },
+    {
+      "case_id": "attacked_0017",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION"
+      ]
+    },
+    {
+      "case_id": "attacked_0018",
+      "detected": [
+        "ST-DOCX-HEADER-FOOTER-PROMPT"
+      ]
+    },
+    {
+      "case_id": "attacked_0019",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION",
+        "ST-HTML-WHITE-TEXT"
+      ]
+    },
+    {
+      "case_id": "attacked_0020",
+      "detected": [
+        "ST-GEN-BASE64-INSTRUCTION"
+      ]
+    },
+    {
+      "case_id": "attacked_0021",
+      "detected": [
+        "ST-GEN-BASE64-INSTRUCTION",
+        "ST-PDF-HIDDEN-TEXT-WHITE"
+      ]
+    },
+    {
+      "case_id": "attacked_0022",
+      "detected": [
+        "ST-GEN-ZERO-WIDTH"
+      ]
+    },
+    {
+      "case_id": "attacked_0023",
+      "detected": [
+        "ST-HTML-ALT-TEXT-PROMPT"
+      ]
+    },
+    {
+      "case_id": "attacked_0024",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION"
+      ]
+    },
+    {
+      "case_id": "attacked_0025",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION",
+        "ST-PDF-HIDDEN-TEXT-WHITE"
+      ]
+    },
+    {
+      "case_id": "attacked_0026",
+      "detected": [
+        "ST-DOCX-TINY-TEXT",
+        "ST-DOCX-WHITE-TEXT",
+        "ST-GEN-BASE64-INSTRUCTION"
+      ]
+    },
+    {
+      "case_id": "attacked_0027",
+      "detected": [
+        "ST-GEN-ZERO-WIDTH"
+      ]
+    },
+    {
+      "case_id": "attacked_0028",
+      "detected": [
+        "ST-GEN-ZERO-WIDTH"
+      ]
+    },
+    {
+      "case_id": "attacked_0029",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION",
+        "ST-PDF-TINY-TEXT"
+      ]
+    },
+    {
+      "case_id": "attacked_0030",
+      "detected": [
+        "ST-DOCX-WHITE-TEXT",
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION"
+      ]
+    },
+    {
+      "case_id": "attacked_0031",
+      "detected": [
+        "ST-GEN-BASE64-INSTRUCTION",
+        "ST-HTML-HIDDEN-DISPLAY"
+      ]
+    },
+    {
+      "case_id": "attacked_0032",
+      "detected": [
+        "ST-GEN-BASE64-INSTRUCTION"
+      ]
+    },
+    {
+      "case_id": "attacked_0033",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION",
+        "ST-PDF-OFFPAGE-TEXT"
+      ]
+    },
+    {
+      "case_id": "attacked_0034",
+      "detected": [
+        "ST-DOCX-TINY-TEXT",
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION"
+      ]
+    },
+    {
+      "case_id": "attacked_0035",
+      "detected": [
+        "ST-HTML-COMMENT-PROMPT"
+      ]
+    },
+    {
+      "case_id": "attacked_0036",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION"
+      ]
+    },
+    {
+      "case_id": "attacked_0037",
+      "detected": [
+        "ST-PDF-METADATA-PROMPT"
+      ]
+    },
+    {
+      "case_id": "attacked_0038",
+      "detected": [
+        "ST-DOCX-METADATA-PROMPT"
+      ]
+    },
+    {
+      "case_id": "attacked_0039",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION",
+        "ST-HTML-HIDDEN-DISPLAY"
+      ]
+    },
+    {
+      "case_id": "attacked_0040",
+      "detected": [
+        "ST-GEN-ZERO-WIDTH"
+      ]
+    },
+    {
+      "case_id": "attacked_0041",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION"
+      ]
+    },
+    {
+      "case_id": "attacked_0042",
+      "detected": [
+        "ST-DOCX-COMMENT-PROMPT"
+      ]
+    },
+    {
+      "case_id": "attacked_0043",
+      "detected": [
+        "ST-HTML-METADATA-PROMPT"
+      ]
+    },
+    {
+      "case_id": "attacked_0044",
+      "detected": [
+        "ST-GEN-BASE64-INSTRUCTION"
+      ]
+    },
+    {
+      "case_id": "attacked_0045",
+      "detected": [
+        "ST-GEN-BASE64-INSTRUCTION",
+        "ST-PDF-HIDDEN-TEXT-WHITE"
+      ]
+    },
+    {
+      "case_id": "attacked_0046",
+      "detected": [
+        "ST-DOCX-HEADER-FOOTER-PROMPT"
+      ]
+    },
+    {
+      "case_id": "attacked_0047",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION",
+        "ST-HTML-OFFSCREEN-TEXT"
+      ]
+    },
+    {
+      "case_id": "attacked_0048",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION"
+      ]
+    },
+    {
+      "case_id": "attacked_0049",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION",
+        "ST-PDF-HIDDEN-TEXT-WHITE"
+      ]
+    },
+    {
+      "case_id": "attacked_0050",
+      "detected": [
+        "ST-GEN-ZERO-WIDTH"
+      ]
+    },
+    {
+      "case_id": "attacked_0051",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION",
+        "ST-HTML-WHITE-TEXT"
+      ]
+    },
+    {
+      "case_id": "attacked_0052",
+      "detected": [
+        "ST-GEN-ZERO-WIDTH"
+      ]
+    },
+    {
+      "case_id": "attacked_0053",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION",
+        "ST-PDF-TINY-TEXT"
+      ]
+    },
+    {
+      "case_id": "attacked_0054",
+      "detected": [
+        "ST-DOCX-TINY-TEXT",
+        "ST-DOCX-WHITE-TEXT",
+        "ST-GEN-BASE64-INSTRUCTION"
+      ]
+    },
+    {
+      "case_id": "attacked_0055",
+      "detected": [
+        "ST-HTML-ALT-TEXT-PROMPT"
+      ]
+    },
+    {
+      "case_id": "attacked_0056",
+      "detected": [
+        "ST-GEN-BASE64-INSTRUCTION"
+      ]
+    },
+    {
+      "case_id": "attacked_0057",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION",
+        "ST-PDF-OFFPAGE-TEXT"
+      ]
+    },
+    {
+      "case_id": "attacked_0058",
+      "detected": [
+        "ST-DOCX-WHITE-TEXT",
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION"
+      ]
+    },
+    {
+      "case_id": "attacked_0059",
+      "detected": [
+        "ST-GEN-ZERO-WIDTH"
+      ]
+    },
+    {
+      "case_id": "attacked_0060",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION"
+      ]
+    },
+    {
+      "case_id": "attacked_0061",
+      "detected": [
+        "ST-PDF-METADATA-PROMPT"
+      ]
+    },
+    {
+      "case_id": "attacked_0062",
+      "detected": [
+        "ST-DOCX-TINY-TEXT",
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION"
+      ]
+    },
+    {
+      "case_id": "attacked_0063",
+      "detected": [
+        "ST-GEN-BASE64-INSTRUCTION",
+        "ST-HTML-HIDDEN-DISPLAY"
+      ]
+    },
+    {
+      "case_id": "attacked_0064",
+      "detected": [
+        "ST-GEN-ZERO-WIDTH"
+      ]
+    },
+    {
+      "case_id": "attacked_0065",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION"
+      ]
+    },
+    {
+      "case_id": "attacked_0066",
+      "detected": [
+        "ST-DOCX-METADATA-PROMPT"
+      ]
+    },
+    {
+      "case_id": "attacked_0067",
+      "detected": [
+        "ST-HTML-COMMENT-PROMPT"
+      ]
+    },
+    {
+      "case_id": "attacked_0068",
+      "detected": [
+        "ST-GEN-BASE64-INSTRUCTION"
+      ]
+    },
+    {
+      "case_id": "attacked_0069",
+      "detected": [
+        "ST-GEN-BASE64-INSTRUCTION",
+        "ST-PDF-HIDDEN-TEXT-WHITE"
+      ]
+    },
+    {
+      "case_id": "attacked_0070",
+      "detected": [
+        "ST-DOCX-COMMENT-PROMPT"
+      ]
+    },
+    {
+      "case_id": "attacked_0071",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION",
+        "ST-HTML-HIDDEN-DISPLAY"
+      ]
+    },
+    {
+      "case_id": "attacked_0072",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION"
+      ]
+    },
+    {
+      "case_id": "attacked_0073",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION",
+        "ST-PDF-HIDDEN-TEXT-WHITE"
+      ]
+    },
+    {
+      "case_id": "attacked_0074",
+      "detected": [
+        "ST-DOCX-HEADER-FOOTER-PROMPT"
+      ]
+    },
+    {
+      "case_id": "attacked_0075",
+      "detected": [
+        "ST-HTML-METADATA-PROMPT"
+      ]
+    },
+    {
+      "case_id": "attacked_0076",
+      "detected": [
+        "ST-GEN-ZERO-WIDTH"
+      ]
+    },
+    {
+      "case_id": "attacked_0077",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION",
+        "ST-PDF-TINY-TEXT"
+      ]
+    },
+    {
+      "case_id": "attacked_0078",
+      "detected": [
+        "ST-GEN-ZERO-WIDTH"
+      ]
+    },
+    {
+      "case_id": "attacked_0079",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION",
+        "ST-HTML-OFFSCREEN-TEXT"
+      ]
+    },
+    {
+      "case_id": "attacked_0080",
+      "detected": [
+        "ST-GEN-BASE64-INSTRUCTION"
+      ]
+    },
+    {
+      "case_id": "attacked_0081",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION",
+        "ST-PDF-OFFPAGE-TEXT"
+      ]
+    },
+    {
+      "case_id": "attacked_0082",
+      "detected": [
+        "ST-DOCX-TINY-TEXT",
+        "ST-DOCX-WHITE-TEXT",
+        "ST-GEN-BASE64-INSTRUCTION"
+      ]
+    },
+    {
+      "case_id": "attacked_0083",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION",
+        "ST-HTML-WHITE-TEXT"
+      ]
+    },
+    {
+      "case_id": "attacked_0084",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION"
+      ]
+    },
+    {
+      "case_id": "attacked_0085",
+      "detected": [
+        "ST-PDF-METADATA-PROMPT"
+      ]
+    },
+    {
+      "case_id": "attacked_0086",
+      "detected": [
+        "ST-DOCX-WHITE-TEXT",
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION"
+      ]
+    },
+    {
+      "case_id": "attacked_0087",
+      "detected": [
+        "ST-HTML-ALT-TEXT-PROMPT"
+      ]
+    },
+    {
+      "case_id": "attacked_0088",
+      "detected": [
+        "ST-GEN-ZERO-WIDTH"
+      ]
+    },
+    {
+      "case_id": "attacked_0089",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION"
+      ]
+    },
+    {
+      "case_id": "attacked_0090",
+      "detected": [
+        "ST-DOCX-TINY-TEXT",
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION"
+      ]
+    },
+    {
+      "case_id": "attacked_0091",
+      "detected": [
+        "ST-GEN-ZERO-WIDTH"
+      ]
+    },
+    {
+      "case_id": "attacked_0092",
+      "detected": [
+        "ST-GEN-BASE64-INSTRUCTION"
+      ]
+    },
+    {
+      "case_id": "attacked_0093",
+      "detected": [
+        "ST-GEN-BASE64-INSTRUCTION",
+        "ST-PDF-HIDDEN-TEXT-WHITE"
+      ]
+    },
+    {
+      "case_id": "attacked_0094",
+      "detected": [
+        "ST-DOCX-METADATA-PROMPT"
+      ]
+    },
+    {
+      "case_id": "attacked_0095",
+      "detected": [
+        "ST-GEN-BASE64-INSTRUCTION",
+        "ST-HTML-HIDDEN-DISPLAY"
+      ]
+    },
+    {
+      "case_id": "attacked_0096",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION"
+      ]
+    },
+    {
+      "case_id": "attacked_0097",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION",
+        "ST-PDF-HIDDEN-TEXT-WHITE"
+      ]
+    },
+    {
+      "case_id": "attacked_0098",
+      "detected": [
+        "ST-DOCX-COMMENT-PROMPT"
+      ]
+    },
+    {
+      "case_id": "attacked_0099",
+      "detected": [
+        "ST-HTML-COMMENT-PROMPT"
+      ]
+    },
+    {
+      "case_id": "attacked_0100",
+      "detected": [
+        "ST-GEN-ZERO-WIDTH"
+      ]
+    },
+    {
+      "case_id": "attacked_0101",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION",
+        "ST-PDF-TINY-TEXT"
+      ]
+    },
+    {
+      "case_id": "attacked_0102",
+      "detected": [
+        "ST-DOCX-HEADER-FOOTER-PROMPT"
+      ]
+    },
+    {
+      "case_id": "attacked_0103",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION",
+        "ST-HTML-HIDDEN-DISPLAY"
+      ]
+    },
+    {
+      "case_id": "attacked_0104",
+      "detected": [
+        "ST-GEN-BASE64-INSTRUCTION"
+      ]
+    },
+    {
+      "case_id": "attacked_0105",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION",
+        "ST-PDF-OFFPAGE-TEXT"
+      ]
+    },
+    {
+      "case_id": "attacked_0106",
+      "detected": [
+        "ST-GEN-ZERO-WIDTH"
+      ]
+    },
+    {
+      "case_id": "attacked_0107",
+      "detected": [
+        "ST-HTML-METADATA-PROMPT"
+      ]
+    },
+    {
+      "case_id": "attacked_0108",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION"
+      ]
+    },
+    {
+      "case_id": "attacked_0109",
+      "detected": [
+        "ST-PDF-METADATA-PROMPT"
+      ]
+    },
+    {
+      "case_id": "attacked_0110",
+      "detected": [
+        "ST-DOCX-TINY-TEXT",
+        "ST-DOCX-WHITE-TEXT",
+        "ST-GEN-BASE64-INSTRUCTION"
+      ]
+    },
+    {
+      "case_id": "attacked_0111",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION",
+        "ST-HTML-OFFSCREEN-TEXT"
+      ]
+    },
+    {
+      "case_id": "attacked_0112",
+      "detected": [
+        "ST-GEN-ZERO-WIDTH"
+      ]
+    },
+    {
+      "case_id": "attacked_0113",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION"
+      ]
+    },
+    {
+      "case_id": "attacked_0114",
+      "detected": [
+        "ST-DOCX-WHITE-TEXT",
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION"
+      ]
+    },
+    {
+      "case_id": "attacked_0115",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION",
+        "ST-HTML-WHITE-TEXT"
+      ]
+    },
+    {
+      "case_id": "attacked_0116",
+      "detected": [
+        "ST-GEN-BASE64-INSTRUCTION"
+      ]
+    },
+    {
+      "case_id": "attacked_0117",
+      "detected": [
+        "ST-GEN-BASE64-INSTRUCTION",
+        "ST-PDF-HIDDEN-TEXT-WHITE"
+      ]
+    },
+    {
+      "case_id": "attacked_0118",
+      "detected": [
+        "ST-DOCX-TINY-TEXT",
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION"
+      ]
+    },
+    {
+      "case_id": "attacked_0119",
+      "detected": [
+        "ST-HTML-ALT-TEXT-PROMPT"
+      ]
+    },
+    {
+      "case_id": "attacked_0120",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION"
+      ]
+    },
+    {
+      "case_id": "attacked_0121",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION",
+        "ST-PDF-HIDDEN-TEXT-WHITE"
+      ]
+    },
+    {
+      "case_id": "attacked_0122",
+      "detected": [
+        "ST-DOCX-METADATA-PROMPT"
+      ]
+    },
+    {
+      "case_id": "attacked_0123",
+      "detected": [
+        "ST-GEN-ZERO-WIDTH"
+      ]
+    },
+    {
+      "case_id": "attacked_0124",
+      "detected": [
+        "ST-GEN-ZERO-WIDTH"
+      ]
+    },
+    {
+      "case_id": "attacked_0125",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION",
+        "ST-PDF-TINY-TEXT"
+      ]
+    },
+    {
+      "case_id": "attacked_0126",
+      "detected": [
+        "ST-DOCX-COMMENT-PROMPT"
+      ]
+    },
+    {
+      "case_id": "attacked_0127",
+      "detected": [
+        "ST-GEN-BASE64-INSTRUCTION",
+        "ST-HTML-HIDDEN-DISPLAY"
+      ]
+    },
+    {
+      "case_id": "attacked_0128",
+      "detected": [
+        "ST-GEN-BASE64-INSTRUCTION"
+      ]
+    },
+    {
+      "case_id": "attacked_0129",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION",
+        "ST-PDF-OFFPAGE-TEXT"
+      ]
+    },
+    {
+      "case_id": "attacked_0130",
+      "detected": [
+        "ST-DOCX-HEADER-FOOTER-PROMPT"
+      ]
+    },
+    {
+      "case_id": "attacked_0131",
+      "detected": [
+        "ST-HTML-COMMENT-PROMPT"
+      ]
+    },
+    {
+      "case_id": "attacked_0132",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION"
+      ]
+    },
+    {
+      "case_id": "attacked_0133",
+      "detected": [
+        "ST-PDF-METADATA-PROMPT"
+      ]
+    },
+    {
+      "case_id": "attacked_0134",
+      "detected": [
+        "ST-GEN-ZERO-WIDTH"
+      ]
+    },
+    {
+      "case_id": "attacked_0135",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION",
+        "ST-HTML-HIDDEN-DISPLAY"
+      ]
+    },
+    {
+      "case_id": "attacked_0136",
+      "detected": [
+        "ST-GEN-ZERO-WIDTH"
+      ]
+    },
+    {
+      "case_id": "attacked_0137",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION"
+      ]
+    },
+    {
+      "case_id": "attacked_0138",
+      "detected": [
+        "ST-DOCX-TINY-TEXT",
+        "ST-DOCX-WHITE-TEXT",
+        "ST-GEN-BASE64-INSTRUCTION"
+      ]
+    },
+    {
+      "case_id": "attacked_0139",
+      "detected": [
+        "ST-HTML-METADATA-PROMPT"
+      ]
+    },
+    {
+      "case_id": "attacked_0140",
+      "detected": [
+        "ST-GEN-BASE64-INSTRUCTION"
+      ]
+    },
+    {
+      "case_id": "attacked_0141",
+      "detected": [
+        "ST-GEN-BASE64-INSTRUCTION",
+        "ST-PDF-HIDDEN-TEXT-WHITE"
+      ]
+    },
+    {
+      "case_id": "attacked_0142",
+      "detected": [
+        "ST-DOCX-WHITE-TEXT",
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION"
+      ]
+    },
+    {
+      "case_id": "attacked_0143",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION",
+        "ST-HTML-OFFSCREEN-TEXT"
+      ]
+    },
+    {
+      "case_id": "attacked_0144",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION"
+      ]
+    },
+    {
+      "case_id": "attacked_0145",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION",
+        "ST-PDF-HIDDEN-TEXT-WHITE"
+      ]
+    },
+    {
+      "case_id": "attacked_0146",
+      "detected": [
+        "ST-DOCX-TINY-TEXT",
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION"
+      ]
+    },
+    {
+      "case_id": "attacked_0147",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION",
+        "ST-HTML-WHITE-TEXT"
+      ]
+    },
+    {
+      "case_id": "attacked_0148",
+      "detected": [
+        "ST-GEN-ZERO-WIDTH"
+      ]
+    },
+    {
+      "case_id": "attacked_0149",
+      "detected": [
+        "ST-GEN-PROMPT-LIKE-INSTRUCTION",
+        "ST-PDF-TINY-TEXT"
+      ]
+    },
+    {
+      "case_id": "attacked_0150",
+      "detected": [
+        "ST-DOCX-METADATA-PROMPT"
+      ]
+    }
+  ]
+}
