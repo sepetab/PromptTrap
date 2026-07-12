@@ -2,10 +2,11 @@
 from __future__ import annotations
 
 import hashlib
-import mimetypes
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Any
+
+from prompttrap.scanner.detect import detect_mime
 
 
 @dataclass
@@ -68,8 +69,5 @@ class BaseScanner:
 
     @staticmethod
     def detect_type(path: Path | str) -> str:
-        path = Path(path)
-        guess, _ = mimetypes.guess_type(str(path))
-        if path.suffix.lower() == ".txt":
-            return "text/plain"
-        return guess or "application/octet-stream"
+        """Detect MIME type by file content, not extension."""
+        return detect_mime(path)

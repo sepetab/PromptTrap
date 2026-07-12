@@ -16,8 +16,10 @@ RUN pip install --no-cache-dir uv
 
 WORKDIR /app
 
-COPY pyproject.toml ./
-RUN uv pip install --system . .[dev]
+COPY pyproject.toml uv.lock ./
+RUN uv sync --frozen --extra dev
+
+ENV PATH="/app/.venv/bin:$PATH"
 
 COPY . .
 
