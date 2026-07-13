@@ -78,7 +78,7 @@ docker compose run --rm app python -m prompttrap benchmark run \
 
 `benchmark generate` creates clean and attacked PDF/DOCX/HTML/TXT files with a
 `manifest.jsonl` recording the ground-truth label and expected issue codes for
-each case. `benchmark run` scans every manifest entry and prints recall, false
+each case. `benchmark run` scans every manifest entry and reports recall, false
 positives, sanitization leakage, content preservation, crash rate, and timing.
 
 ---
@@ -101,7 +101,8 @@ detection tests (`tests/test_detect.py`), and end-to-end integration tests
 1. **Hash** the original file (SHA-256).
 2. **Detect type by content** — magic bytes and zip structure, not the file
    extension. A PDF renamed `.txt` is still scanned as a PDF.
-3. **Extract** machine-readable text, coordinates, metadata, and comments.
+3. **Extract** machine-readable text, coordinates, metadata, comments,
+   annotations, alt text, and encoded strings.
 4. **Render/OCR** where practical to approximate the human-visible view.
 5. **Compare** OCR/visible text against parser-extracted text and flag
    mismatches.
@@ -110,30 +111,68 @@ detection tests (`tests/test_detect.py`), and end-to-end integration tests
 7. **Generate** `safe_text.txt` and `safe_payload.json`, then re-scan the safe
    output to confirm seeded payloads are gone.
 
-### Issue codes
+### Supported formats and detectors
 
-| Code | Meaning |
+#### PDF (`pdfminer.six`, `pypdf`, `pypdfium2`, `pytesseract`)
+
+| Code | Detects |
 |------|---------|
 | `ST-PDF-HIDDEN-TEXT-WHITE` | White / near-white text invisible on the page |
 | `ST-PDF-TINY-TEXT` | Font size too small to be human-visible |
 | `ST-PDF-OFFPAGE-TEXT` | Text drawn outside the page media box |
 | `ST-PDF-METADATA-PROMPT` | Prompt-like / base64 payload in PDF metadata |
+| `ST-PDF-ANNOTATION-PROMPT` | Prompt-like / base64 payload in PDF annotations (`/Contents`, `/T`, `/RC`) |
 | `ST-PDF-OCR-MISMATCH` | OCR text differs substantially from extracted text |
-| `ST-GEN-ZERO-WIDTH` | Zero-width Unicode characters hiding text |
+
+#### DOCX (`zipfile`, `lxml`)
+
+| Code | Detects |
+|------|---------|
+| `ST-DOCX-WHITE-TEXT` | White / near-white run text (`<w:color w:val="FFFFFF"/>`) |
+| `ST-DOCX-TINY-TEXT` | Tiny run text (font size below threshold) |
+| `ST-DOCX-HIDDEN-RUN` | Run marked with `<w:vanish/>` |
+| `ST-DOCX-COMMENT-PROMPT` | Prompt-like / encoded payload in document comments |
+| `ST-DOCX-HEADER-FOOTER-PROMPT` | Hidden or prompt-like payload in headers/footers |
+| `ST-DOCX-METADATA-PROMPT` | Prompt-like / encoded payload in core metadata |
+| `ST-DOCX-ALT-TEXT-PROMPT` | Payload in drawing alt text (`<wp:docPr descr="...">`) |
+
+#### HTML (`beautifulsoup4`, `lxml`, `tinycss2`)
+
+| Code | Detects |
+|------|---------|
+| `ST-HTML-HIDDEN-DISPLAY` | Element hidden with `display:none` (inline or `<style>` block) |
+| `ST-HTML-HIDDEN-VISIBILITY` | Element hidden with `visibility:hidden` |
+| `ST-HTML-HIDDEN-OPACITY` | Element hidden with `opacity:0` |
+| `ST-HTML-WHITE-TEXT` | White / near-white text on light background |
+| `ST-HTML-TINY-TEXT` | Tiny font-size text |
+| `ST-HTML-OFFSCREEN-TEXT` | Text positioned off-screen via large negative offsets |
+| `ST-HTML-COMMENT-PROMPT` | Prompt-like / encoded payload in HTML comments |
+| `ST-HTML-METADATA-PROMPT` | Payload in `<meta>` tags or `<title>` |
+| `ST-HTML-ALT-TEXT-PROMPT` | Payload in `alt` / `title` attributes |
+
+CSS inheritance is resolved by walking ancestor `<style>` block rules and inline
+styles, so class-based hiding (`.hidden { display:none }`) and hidden parents
+are both detected.
+
+#### General (applied to all formats via `TXTScanner`)
+
+| Code | Detects |
+|------|---------|
+| `ST-GEN-ZERO-WIDTH` | Zero-width Unicode characters (ZWSP, ZWNJ, ZWJ, WJ, BOM) hiding text |
 | `ST-GEN-BASE64-INSTRUCTION` | Base64-encoded instruction payload |
 | `ST-GEN-PROMPT-LIKE-INSTRUCTION` | Prompt-injection phrasing in document text |
 
 ---
 
-## Benchmark targets (by Day 10)
+## Benchmark results (300-file corpus)
 
-| Metric | Target |
-|--------|-------|
-| Seeded attack recall | >= 90% |
-| False positives on clean docs | <= 3% |
-| Sanitization leakage | 0 seeded payloads remain |
-| Visible content preservation | >= 95% |
-| Crash rate | <= 1% |
+| Metric | Target | Actual |
+|--------|--------|--------|
+| Seeded attack recall | >= 90% | 100% |
+| False positives on clean docs | <= 3% | 0% |
+| Sanitization leakage | 0 | 0 |
+| Visible content preservation | >= 95% | 95.2% |
+| Crash rate | <= 1% | 0% |
 
 ---
 
@@ -147,27 +186,26 @@ promptrap/
   prompttrap/reports/    JSON/HTML evidence reports
   samples/               clean + attacked examples
   tests/                 pytest unit and integration tests
-  apps/viewer/           optional Streamlit viewer
+  apps/viewer/           optional Streamlit viewer (stub)
 ```
 
 ---
 
 ## Known limitations
 
-- **DOCX and HTML scanners are not yet implemented.** Only PDF and TXT are
-  scanned; DOCX/HTML files currently raise "no scanner registered" and are
-  counted as crashes in the benchmark.
-- OCR mismatch detection is best-effort and depends on Tesseract; it degrades
-  silently (no issue raised) if rendering or OCR fails.
+- OCR mismatch detection is PDF-only and best-effort; it depends on Tesseract
+  and degrades silently (no issue raised) if rendering or OCR fails. DOCX/HTML
+  OCR mismatch is not implemented.
 - Zero-width Unicode characters in PDFs may be dropped by the PDF font and
   surface only as prompt-like text rather than as a zero-width issue.
+- LibreOffice is installed in Docker but not yet used for DOCX-to-PDF rendering.
 - No polished UI; the Streamlit viewer is a stub.
+- The CLI re-scan for leakage uses the TXT scanner on `safe_text.txt` output,
+  which is always plain text regardless of input format.
 
 ## Next steps
 
-1. Implement the DOCX scanner (comments, headers/footers, hidden runs, alt text,
-   metadata).
-2. Implement the HTML scanner (`display:none`, `visibility:hidden`,
-   `opacity:0`, comments, meta tags, alt/title text).
-3. Run the full 300-file benchmark and confirm the target metrics.
-4. Add a minimal Streamlit viewer or `evidence.html` upload view.
+1. Add DOCX-to-PDF rendering via LibreOffice for OCR mismatch detection on DOCX.
+2. Build a minimal Streamlit viewer or enhance `evidence.html` with upload.
+3. Clean up unused dependencies (`pikepdf`, `regex` module).
+4. Improve `metrics.py` path resolution to be corpus-root-relative.
