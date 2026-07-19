@@ -16,7 +16,7 @@ from prompttrap.scanner import scan as run_scan
 from prompttrap.reports.html_report import write_html_report
 from prompttrap.reports.json_report import write_json_report
 from prompttrap.sanitizer.safe_payload import write_safe_outputs
-from prompttrap.scanner.txt import TXTScanner
+from prompttrap.scanner import get_scanner
 
 
 def cmd_scan(args: argparse.Namespace) -> int:
@@ -33,8 +33,11 @@ def cmd_scan(args: argparse.Namespace) -> int:
     html_path = write_html_report(result, out_dir)
     safe_paths = write_safe_outputs(result, out_dir)
 
-    # Re-scan sanitized output to verify zero leakage.
-    rescan = TXTScanner().scan(safe_paths["safe_text"])
+    # Re-scan sanitized output to verify zero leakage. Use content-based
+    # detection (not a hardcoded TXTScanner) so the right scanner is chosen
+    # even though safe_text.txt is always plain text today.
+    safe_text_path = safe_paths["safe_text"]
+    rescan = get_scanner(safe_text_path).scan(safe_text_path)
     leakage = len(rescan.issues)
 
     print(f"scanned: {src}")

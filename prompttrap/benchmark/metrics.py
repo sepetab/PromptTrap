@@ -10,6 +10,37 @@ from prompttrap.sanitizer.safe_text import safe_text
 from prompttrap.scanner.txt import TXTScanner
 
 
+def _resolve_doc_path(rel: str, corpus_dir: Path) -> Path:
+    """Resolve a manifest ``path`` entry to an existing file.
+
+    Manifest paths are relative to the repo root (e.g.
+    ``data/generated/clean/clean_0001_resume.pdf``), but the benchmark may be
+    run from any working directory. Try, in order: absolute path, repo-root
+    relative (cwd), corpus-root relative, corpus-dir/filename.
+    """
+    p = Path(rel)
+    if p.is_absolute() and p.is_file():
+        return p
+
+    # Relative to the current working directory (repo root in the common case).
+    candidate = Path.cwd() / p
+    if candidate.is_file():
+        return candidate
+
+    # Relative to the corpus directory.
+    candidate = corpus_dir / p
+    if candidate.is_file():
+        return candidate
+
+    # Last resort: the file sits directly inside the corpus directory.
+    candidate = corpus_dir / Path(rel).name
+    if candidate.is_file():
+        return candidate
+
+    # Return the best guess for a clearer error downstream.
+    return Path.cwd() / p
+
+
 def run_benchmark(corpus_dir: Path) -> dict[str, Any]:
     """Scan every file referenced in corpus_dir/manifest.jsonl and score."""
     corpus_dir = Path(corpus_dir)
@@ -27,10 +58,7 @@ def run_benchmark(corpus_dir: Path) -> dict[str, Any]:
         if not line.strip():
             continue
         entry = json.loads(line)
-        rel = entry["path"]
-        doc_path = corpus_dir.parent.parent / rel if not Path(rel).is_absolute() else Path(rel)
-        if not doc_path.is_file():
-            doc_path = corpus_dir / Path(rel).name
+        doc_path = _resolve_doc_path(entry["path"], corpus_dir)
 
         expected_attack = entry.get("label") == "attacked"
 

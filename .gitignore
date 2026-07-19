@@ -4,8 +4,9 @@ __pycache__/
 .env
 .DS_Store
 out/
-reports/benchmark.json
+reports/*.json
 data/generated/
+test_data/
 .coverage
 .pytest_cache/
 .ruff_cache/
