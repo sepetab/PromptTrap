@@ -20,6 +20,7 @@ def to_report_dict(result: ScanResult) -> dict:
         "processing_time_ms": result.processing_time_ms,
         "metadata": result.metadata,
         "visible_text": result.visible_text,
+        "extracted_text": result.extracted_text,
     }
 
 

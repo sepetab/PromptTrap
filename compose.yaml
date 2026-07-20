@@ -4,8 +4,18 @@ services:
     working_dir: /app
     volumes:
       - .:/app
-      - out:/app/out
     command: python -m prompttrap --help
 
-volumes:
-  out:
+  viewer:
+    build: .
+    working_dir: /app
+    volumes:
+      - .:/app
+    ports:
+      - "8501:8501"
+    command: >
+      streamlit run apps/viewer/app.py
+      --server.address=0.0.0.0
+      --server.port=8501
+      --server.headless=true
+      --server.fileWatcherType=none

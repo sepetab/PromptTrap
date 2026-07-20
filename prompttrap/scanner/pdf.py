@@ -31,6 +31,9 @@ NEAR_WHITE_THRESHOLD = 0.9
 # Tolerance (points) outside the page mediabox before flagging off-page text.
 OFFPAGE_MARGIN = 5.0
 
+# Maximum number of pages to OCR for mismatch detection (perf guard).
+OCR_MAX_PAGES = 3
+
 # Minimum rapidfuzz similarity between extracted and OCR text before flagging.
 OCR_MISMATCH_THRESHOLD = 0.70
 
@@ -215,7 +218,8 @@ class PDFScanner(BaseScanner):
         try:
             doc = pdfium.PdfDocument(str(path))
             images: list[str] = []
-            for i in range(len(doc)):
+            page_count = min(len(doc), OCR_MAX_PAGES)
+            for i in range(page_count):
                 page = doc[i]
                 bitmap = page.render(scale=1.5)
                 pil = bitmap.to_pil() if hasattr(bitmap, "to_pil") else Image.fromarray(

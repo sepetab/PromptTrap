@@ -96,6 +96,32 @@ detection tests (`tests/test_detect.py`), and end-to-end integration tests
 
 ---
 
+## Streamlit viewer
+
+A web-based viewer for scanning files and browsing benchmark metrics:
+
+```bash
+docker compose up viewer
+```
+
+Open `http://localhost:8501` in your browser. The viewer has three pages:
+
+- **Home** — overview of what PromptTrap does, how to use the viewer, supported
+  formats and detectors, and CLI command reference.
+- **Scan** — upload a PDF/DOCX/HTML/TXT file, run the scanner, and view:
+  - Summary metrics (issue count, file type, size, scan time)
+  - Downloadable reports (markdown summary, full JSON report, sanitized safe text)
+  - Detected issues with severity, code, location, and evidence
+  - Visible vs extracted text side-by-side comparison
+  - Sanitized safe text and metadata
+  - Recent scans list — click **View** to reload any past scan result
+- **Benchmark** — load an existing benchmark JSON report, upload one, or generate
+  a new benchmark inline. Dashboard shows metric cards (recall, FP rate, leakage,
+  preservation, crash rate), target compliance with pass/fail indicators,
+  confusion matrix, and per-case breakdown.
+
+---
+
 ## How it works
 
 1. **Hash** the original file (SHA-256).
@@ -186,7 +212,7 @@ promptrap/
   prompttrap/reports/    JSON/HTML evidence reports
   samples/               clean + attacked examples
   tests/                 pytest unit and integration tests
-  apps/viewer/           optional Streamlit viewer (stub)
+  apps/viewer/           Streamlit viewer (scan, benchmark, home)
 ```
 
 ---
@@ -199,13 +225,11 @@ promptrap/
 - Zero-width Unicode characters in PDFs may be dropped by the PDF font and
   surface only as prompt-like text rather than as a zero-width issue.
 - LibreOffice is installed in Docker but not yet used for DOCX-to-PDF rendering.
-- No polished UI; the Streamlit viewer is a stub.
 - The CLI re-scan for leakage uses the TXT scanner on `safe_text.txt` output,
   which is always plain text regardless of input format.
 
 ## Next steps
 
 1. Add DOCX-to-PDF rendering via LibreOffice for OCR mismatch detection on DOCX.
-2. Build a minimal Streamlit viewer or enhance `evidence.html` with upload.
-3. Clean up unused dependencies (`pikepdf`, `regex` module).
-4. Improve `metrics.py` path resolution to be corpus-root-relative.
+2. Clean up unused dependencies (`pikepdf`, `regex` module).
+3. Improve `metrics.py` path resolution to be corpus-root-relative.

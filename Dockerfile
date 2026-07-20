@@ -2,7 +2,8 @@ FROM python:3.12-slim
 
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
-    PIP_NO_CACHE_DIR=1
+    PIP_NO_CACHE_DIR=1 \
+    PYTHONPATH="/app"
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
         tesseract-ocr \
@@ -17,7 +18,7 @@ RUN pip install --no-cache-dir uv
 WORKDIR /app
 
 COPY pyproject.toml uv.lock ./
-RUN uv sync --frozen --extra dev
+RUN uv sync --frozen --extra dev --extra viewer
 
 ENV PATH="/app/.venv/bin:$PATH"
 
