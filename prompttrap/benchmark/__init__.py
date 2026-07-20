@@ -1,1 +1,1 @@
-"""Benchmarking harness: generators, attack seeders, metrics."""
+"""Benchmarking harness: generators and metrics."""
