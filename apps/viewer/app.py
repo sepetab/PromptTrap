@@ -416,7 +416,19 @@ def render_benchmark_page() -> None:
         attacked_n = col_a.number_input("Attacked files", value=150, min_value=1, step=10)
         seed = col_s.number_input("Seed", value=42, min_value=0)
 
-        if st.button("Generate & Run Benchmark", type="primary"):
+        st.markdown("""
+<style>
+div.stButton > button[kind="primary"] {
+    background: #2E8B57 !important;
+    border-color: #2E8B57 !important;
+}
+div.stButton > button[kind="primary"]:hover {
+    background: #26734a !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
+        if st.button("Generate & Run Benchmark", type="primary", key="generate_benchmark"):
             from prompttrap.benchmark.generate_corpus import generate
             from prompttrap.benchmark.metrics import run_benchmark
 
