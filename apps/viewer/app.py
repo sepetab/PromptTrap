@@ -25,6 +25,25 @@ from prompttrap.sanitizer.safe_text import safe_text
 
 st.set_page_config(page_title="PromptTrap", page_icon=":shield:", layout="wide")
 
+# Lighter, more welcoming theme via injected CSS.
+st.markdown("""
+<style>
+/* Soft, light theme */
+.stApp {
+    background-color: #eef1f5;
+}
+[data-testid="stSidebar"] {
+    background-color: #dde4ec;
+}
+.stMetric {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+</style>
+""", unsafe_allow_html=True)
+
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -41,6 +60,35 @@ def _format_bytes(n: int) -> str:
 
 def _issue_color(severity: str) -> str:
     return {"high": "🔴", "medium": "🟡", "low": "🟢"}.get(severity, "⚪")
+
+
+def _diff_highlight(visible: str, extracted: str, max_chars: int = 8000) -> tuple[str, str]:
+    """Return (visible_html, extracted_html) with extracted-only text highlighted.
+
+    Uses difflib to find lines present in extracted but not in visible, and
+    wraps them in a red highlight span so the user can see exactly what was
+    hidden from the human view.
+    """
+    import html as html_mod
+
+    visible_lines = visible[:max_chars].splitlines(keepends=True)
+    extracted_lines = extracted[:max_chars].splitlines(keepends=True)
+    visible_set = set(line.strip() for line in visible_lines if line.strip())
+
+    vis_out = html_mod.escape("".join(visible_lines))
+    ext_parts: list[str] = []
+
+    for line in extracted_lines:
+        escaped = html_mod.escape(line)
+        if line.strip() and line.strip() not in visible_set:
+            ext_parts.append(
+                f'<span style="background-color:#ffcdd2;color:#b71c1c;'
+                f'padding:1px 3px;border-radius:3px;font-weight:600;">{escaped}</span>'
+            )
+        else:
+            ext_parts.append(escaped)
+
+    return vis_out, "".join(ext_parts)
 
 
 # ---------------------------------------------------------------------------
@@ -239,26 +287,30 @@ def _render_scan_result(filename: str, result: Any) -> None:
                 st.markdown("**Evidence:**")
                 st.code(issue.evidence[:500], language="text")
 
-    # Visible vs extracted text comparison.
+    # Visible vs extracted text comparison with hidden content highlighted.
     st.subheader("Human-Visible vs Machine-Extracted Text")
     col_vis, col_ext = st.columns(2)
 
+    vis_html, ext_html = _diff_highlight(result.visible_text, result.extracted_text)
+
     with col_vis:
         st.markdown("**Visible Text** (what a human sees)")
-        st.text_area(
-            "visible",
-            value=result.visible_text[:8000],
-            height=300,
-            label_visibility="collapsed",
+        st.markdown(
+            f'<div style="height:300px; overflow-y:auto; '
+            f'border:1px solid #e0e0e0; border-radius:6px; padding:10px; '
+            f'font-family:monospace; font-size:13px; white-space:pre-wrap; '
+            f'background:#ffffff;">{vis_html or "(empty)"}</div>',
+            unsafe_allow_html=True,
         )
 
     with col_ext:
-        st.markdown("**Extracted Text** (machine-readable)")
-        st.text_area(
-            "extracted",
-            value=result.extracted_text[:8000],
-            height=300,
-            label_visibility="collapsed",
+        st.markdown("**Extracted Text** (machine-readable) — highlighted = hidden from humans")
+        st.markdown(
+            f'<div style="height:300px; overflow-y:auto; '
+            f'border:1px solid #e0e0e0; border-radius:6px; padding:10px; '
+            f'font-family:monospace; font-size:13px; white-space:pre-wrap; '
+            f'background:#ffffff;">{ext_html or "(empty)"}</div>',
+            unsafe_allow_html=True,
         )
 
     if len(result.extracted_text) > len(result.visible_text):
@@ -529,6 +581,20 @@ Everything runs locally in Docker. No files leave your machine. No paid APIs.
 
 ---
 
+## 🔒 Security & privacy guardrails
+
+- **Nothing leaves your machine** — all scanning happens inside the local Docker
+  container. No data is uploaded to any server, API, or cloud service.
+- **Temp files are deleted immediately** — uploaded files are written to a
+  temporary file, scanned, and deleted in the same request. Nothing persists on
+  disk unless you download a report.
+- **No accounts, no tracking** — PromptTrap does not require any login and does
+  not collect usage statistics or telemetry.
+- **Reproducible and auditable** — all code is open and runs from a pinned
+  `uv.lock` so you can verify exactly what's running.
+
+---
+
 ## How to use this viewer
 
 ### Scan a document
@@ -626,6 +692,19 @@ def main() -> None:
         render_scan_page()
     else:
         render_benchmark_page()
+
+    st.sidebar.divider()
+    st.sidebar.markdown("---")
+    st.sidebar.markdown("### Support PromptTrap")
+    st.sidebar.markdown(
+        "If you find PromptTrap useful, consider supporting development:"
+    )
+    st.sidebar.markdown(
+        '[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-%E2%98%95-yellow)]'
+        '(https://www.buymeacoffee.com/promptrap)',
+        unsafe_allow_html=True,
+    )
+    st.sidebar.caption("Built with ❤️ for safer AI document processing.")
 
 
 if __name__ == "__main__":
