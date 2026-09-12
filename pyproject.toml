@@ -1,5 +1,5 @@
 [project]
-name = "prompttrap"
+name = "purifydocs"
 version = "0.1.0"
 description = "Local-first document-safety scanner for prompt injection and hidden manipulation."
 requires-python = ">=3.12"
@@ -20,6 +20,7 @@ dependencies = [
 
 [project.optional-dependencies]
 viewer = ["streamlit"]
+api = ["fastapi", "uvicorn", "python-multipart"]
 dev = ["pytest", "ruff"]
 
 [tool.pytest.ini_options]

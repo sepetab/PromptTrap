@@ -1,57 +1,97 @@
-# PromptTrap
+# PurifyDocs
 
-Local-first document-safety scanner. Detects hidden or machine-readable
-manipulation in PDF, DOCX, HTML, and TXT files, then emits clean, AI-readable
-output plus evidence reports.
-
-This is a learning project / MVP. No accounts, no external integrations, no
-paid APIs. See `PromptTrap_MVP_Windows_First_Learning_Handoff.pdf` for the full
-spec.
+Document-safety scanner. Detects hidden or machine-readable manipulation in
+PDF, DOCX, HTML, and TXT files, then emits clean, AI-readable output plus
+evidence reports.
 
 ---
 
-## Quick start
+## Architecture
 
-The official run path is Docker Compose, identical on Windows/WSL2 and macOS.
+PurifyDocs is split into three components:
 
-### Windows / WSL2
+| Component | Tech | Hosting |
+|----------|------|---------|
+| **Frontend** | Static HTML/CSS/JS | Cloudflare Pages (free) |
+| **API** | FastAPI + Python scanner | Northflank (free sandbox) or any Docker host |
+| **CLI / library** | Python package | Local / Docker |
 
-Requirements: Git for Windows, VS Code, Docker Desktop with WSL integration,
-WSL2 Ubuntu.
+The frontend is a static site — no server process, served from Cloudflare's CDN.
+The API runs the Python scanner (with native dependencies like Tesseract OCR) on
+a container platform. The frontend talks to the API via CORS-enabled HTTP.
+
+```
+┌─────────────────────┐     HTTPS      ┌──────────────────────┐
+│  Cloudflare Pages   │ ──────────────> │  API (Northflank)    │
+│  apps/web/          │   POST /scan   │  apps/api/           │
+│  static HTML/CSS/JS │ <────────────── │  FastAPI + scanner   │
+└─────────────────────┘    JSON resp   └──────────────────────┘
+```
+
+---
+
+## Quick start (local dev)
+
+### Prerequisites
+
+- Docker Desktop (with WSL2 on Windows)
+- Or: Python 3.12+, `uv`, and system Tesseract OCR
+
+### Docker Compose (recommended)
 
 ```bash
-mkdir -p ~/code && cd ~/code
-git clone <repo-url> prompttrap
-cd prompttrap
-docker compose up --build
+git clone <repo-url> purifydocs
+cd purifydocs
+
+# Start the API + Streamlit viewer
+docker compose up --build api viewer
+
+# Run tests
 docker compose run --rm app pytest
-docker compose run --rm app python -m prompttrap scan \
-  "samples/PromptTrap_Data_Generator/prompttrap_data_starter/data_sample/generated/attacked/attacked_0001_resume_pdf_white_text.pdf" \
+docker compose run --rm app ruff check .
+
+# Scan a file via CLI
+docker compose run --rm app python -m purifydocs scan \
+  "samples/PurifyDocs_Data_Generator/purifydocs_data_starter/data_sample/generated/attacked/attacked_0001_resume_pdf_white_text.pdf" \
   --out out/demo
 ```
 
-> Keep the repo inside the WSL Linux filesystem (`~/code/promptrap`), not in
-> `C:\Users\...` or OneDrive, for filesystem performance and line-ending sanity.
+- **API** at `http://localhost:8000` — FastAPI docs at `/docs`
+- **Viewer** at `http://localhost:8501` — Streamlit web UI
 
-### macOS
+### Frontend (static)
 
-```bash
-git clone <repo-url> prompttrap
-cd prompttrap
-docker compose up --build
-docker compose run --rm app pytest
-```
-
-The same Docker Compose commands work — no platform-specific setup.
+The static frontend in `apps/web/` can be opened directly in a browser for
+local development. Edit `apps/web/js/config.js` to set `API_BASE_URL` to your
+local or deployed API.
 
 ---
 
-## Commands
+## API endpoints
+
+| Method | Path | Description |
+|--------|------|-------------|
+| `GET` | `/` | Health check |
+| `GET` | `/formats` | Supported file formats |
+| `POST` | `/scan` | Upload a file → full scan report (JSON) |
+| `POST` | `/scan/text` | Scan raw text → report (TXT scanner only) |
+| `POST` | `/scan/html` | Upload a file → HTML evidence report |
+| `POST` | `/scan/safe` | Upload a file → sanitized safe payload |
+| `POST` | `/scan/full` | Upload a file → report + safe text + safe payload |
+| `POST` | `/benchmark/generate` | Generate a synthetic test corpus |
+| `POST` | `/benchmark/run` | Run benchmark on a generated corpus |
+
+API documentation (OpenAPI/Swagger) is available at `/docs` when the server is
+running.
+
+---
+
+## CLI commands
 
 ### Scan one file
 
 ```bash
-docker compose run --rm app python -m prompttrap scan <file> --out <dir>
+docker compose run --rm app python -m purifydocs scan <file> --out <dir>
 ```
 
 Writes an output folder containing:
@@ -63,23 +103,13 @@ Writes an output folder containing:
 | `safe_text.txt` | Sanitized plain text with detected payloads removed |
 | `safe_payload.json` | Structured payload: source/safe SHA-256, issue summary, safe text |
 
-The CLI prints the original SHA-256, detected issue codes, and a leakage count
-(the re-scanned safe output must contain zero seeded payloads).
-
 ### Benchmark
 
-Generate a synthetic corpus, then score the scanner over it:
-
 ```bash
-docker compose run --rm app python -m prompttrap benchmark generate --clean 150 --attacked 150
-docker compose run --rm app python -m prompttrap benchmark run \
+docker compose run --rm app python -m purifydocs benchmark generate --clean 150 --attacked 150
+docker compose run --rm app python -m purifydocs benchmark run \
   --input data/generated --out reports/benchmark.json
 ```
-
-`benchmark generate` creates clean and attacked PDF/DOCX/HTML/TXT files with a
-`manifest.jsonl` recording the ground-truth label and expected issue codes for
-each case. `benchmark run` scans every manifest entry and reports recall, false
-positives, sanitization leakage, content preservation, crash rate, and timing.
 
 ---
 
@@ -90,35 +120,47 @@ docker compose run --rm app pytest
 docker compose run --rm app ruff check .
 ```
 
-Tests are split into unit tests per scanner (`tests/test_scanner_*.py`), content
-detection tests (`tests/test_detect.py`), and end-to-end integration tests
-(`tests/test_integration.py`) that exercise the bundled sample corpus.
-
 ---
 
-## Streamlit viewer
+## Deployment
 
-A web-based viewer for scanning files and browsing benchmark metrics:
+### Frontend → Cloudflare Pages
+
+1. Push this repo to GitHub.
+2. In Cloudflare Pages, create a project connected to the repo.
+3. Set build output directory to `apps/web/`.
+4. No build command needed — it's static HTML/CSS/JS.
+5. After deployment, edit `apps/web/js/config.js` and set `API_BASE_URL` to
+   your deployed API URL.
+
+Alternatively, use the `wrangler.toml` config:
 
 ```bash
-docker compose up viewer
+npx wrangler pages deploy apps/web
 ```
 
-Open `http://localhost:8501` in your browser. The viewer has three pages:
+### API → Northflank
 
-- **Home** — overview of what PromptTrap does, how to use the viewer, supported
-  formats and detectors, and CLI command reference.
-- **Scan** — upload a PDF/DOCX/HTML/TXT file, run the scanner, and view:
-  - Summary metrics (issue count, file type, size, scan time)
-  - Downloadable reports (markdown summary, full JSON report, sanitized safe text)
-  - Detected issues with severity, code, location, and evidence
-  - Visible vs extracted text side-by-side comparison
-  - Sanitized safe text and metadata
-  - Recent scans list — click **View** to reload any past scan result
-- **Benchmark** — load an existing benchmark JSON report, upload one, or generate
-  a new benchmark inline. Dashboard shows metric cards (recall, FP rate, leakage,
-  preservation, crash rate), target compliance with pass/fail indicators,
-  confusion matrix, and per-case breakdown.
+1. Create a free Northflank Developer Sandbox account.
+2. Create a new service from the Dockerfile in this repo (connect your Git
+   repo or use the Docker image directly).
+3. Set the run command to:
+   ```
+   uvicorn apps.api.main:app --host 0.0.0.0 --port 8080
+   ```
+4. Northflank will build and run the container with all native dependencies
+   (Tesseract OCR, etc.) included.
+5. Copy the deployed API URL and update `apps/web/js/config.js`.
+
+### API → Any Docker host
+
+The same Docker image works on Fly.io, Railway, Render, a VPS, or any
+container platform:
+
+```bash
+docker build -t purifydocs .
+docker run -p 8000:8000 purifydocs uvicorn apps.api.main:app --host 0.0.0.0 --port 8000
+```
 
 ---
 
@@ -205,14 +247,16 @@ are both detected.
 ## Repository layout
 
 ```
-promptrap/
-  prompttrap/scanner/    PDF, DOCX, HTML, TXT scanners + content detection
-  prompttrap/sanitizer/  safe_text and safe_payload generation
-  prompttrap/benchmark/  generator, attack seeder, metrics
-  prompttrap/reports/    JSON/HTML evidence reports
-  samples/               clean + attacked examples
-  tests/                 pytest unit and integration tests
-  apps/viewer/           Streamlit viewer (scan, benchmark, home)
+purifydocs/
+  purifydocs/scanner/    PDF, DOCX, HTML, TXT scanners + content detection
+  purifydocs/sanitizer/  safe_text and safe_payload generation
+  purifydocs/benchmark/  generator, attack seeder, metrics
+  purifydocs/reports/    JSON/HTML evidence reports
+  apps/api/             FastAPI backend (scan, benchmark endpoints)
+  apps/web/             Static frontend for Cloudflare Pages
+  apps/viewer/          Streamlit viewer (local dev alternative)
+  samples/              clean + attacked examples
+  tests/                pytest unit and integration tests
 ```
 
 ---
@@ -227,9 +271,3 @@ promptrap/
 - LibreOffice is installed in Docker but not yet used for DOCX-to-PDF rendering.
 - The CLI re-scan for leakage uses the TXT scanner on `safe_text.txt` output,
   which is always plain text regardless of input format.
-
-## Next steps
-
-1. Add DOCX-to-PDF rendering via LibreOffice for OCR mismatch detection on DOCX.
-2. Clean up unused dependencies (`pikepdf`, `regex` module).
-3. Improve `metrics.py` path resolution to be corpus-root-relative.

@@ -27,8 +27,8 @@ from typing import Any
 
 from lxml import etree
 
-from prompttrap.scanner.base import BaseScanner, Issue, ScanResult
-from prompttrap.scanner.txt import TXTScanner
+from purifydocs.scanner.base import BaseScanner, Issue, ScanResult
+from purifydocs.scanner.txt import TXTScanner
 
 # OOXML namespaces used by Word documents.
 _NS = {

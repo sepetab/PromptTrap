@@ -6,7 +6,7 @@ from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Any
 
-from prompttrap.scanner.detect import detect_mime
+from purifydocs.scanner.detect import detect_mime
 
 
 @dataclass

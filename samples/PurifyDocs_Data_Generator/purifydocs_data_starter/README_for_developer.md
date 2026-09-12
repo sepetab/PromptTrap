@@ -1,4 +1,4 @@
-# PromptTrap data-generation starter
+# PurifyDocs data-generation starter
 
 This is a small learning dataset generator for testing document-intake scanning.
 It creates clean synthetic documents and intentionally manipulated synthetic documents with known labels.

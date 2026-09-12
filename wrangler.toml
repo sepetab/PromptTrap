@@ -1,0 +1,13 @@
+name = "purifydocs"
+compatibility_date = "2024-01-01"
+
+# Cloudflare Pages configuration
+# The static frontend in apps/web/ is served directly.
+# The API backend runs separately (Northflank, VPS, or any Docker host).
+
+[pages]
+build_command = ""
+build_output_dir = "apps/web"
+
+# Environment variables (set in Cloudflare dashboard or via wrangler):
+# VITE_API_URL or similar — not needed; the frontend reads from js/config.js

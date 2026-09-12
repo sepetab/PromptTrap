@@ -3,12 +3,12 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from prompttrap.scanner.base import BaseScanner, ScanResult
-from prompttrap.scanner.detect import DOCX, HTML, PDF, TXT, detect_format
-from prompttrap.scanner.docx import DOCXScanner
-from prompttrap.scanner.html import HTMLScanner
-from prompttrap.scanner.pdf import PDFScanner
-from prompttrap.scanner.txt import TXTScanner
+from purifydocs.scanner.base import BaseScanner, ScanResult
+from purifydocs.scanner.detect import DOCX, HTML, PDF, TXT, detect_format
+from purifydocs.scanner.docx import DOCXScanner
+from purifydocs.scanner.html import HTMLScanner
+from purifydocs.scanner.pdf import PDFScanner
+from purifydocs.scanner.txt import TXTScanner
 
 # Dispatch maps a detected *format* (content-based) to a scanner class.
 _SCANNERS: dict[str, type[BaseScanner]] = {

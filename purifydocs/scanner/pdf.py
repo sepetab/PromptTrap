@@ -19,8 +19,8 @@ from pdfminer.high_level import extract_pages
 from pdfminer.layout import LTChar
 from pypdf import PdfReader
 
-from prompttrap.scanner.base import BaseScanner, Issue, ScanResult
-from prompttrap.scanner.txt import TXTScanner
+from purifydocs.scanner.base import BaseScanner, Issue, ScanResult
+from purifydocs.scanner.txt import TXTScanner
 
 # A font size at or below this is treated as invisible-to-humans "tiny" text.
 TINY_FONT_SIZE = 3.0

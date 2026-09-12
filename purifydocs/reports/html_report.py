@@ -4,7 +4,7 @@ from __future__ import annotations
 import html
 from pathlib import Path
 
-from prompttrap.scanner.base import ScanResult
+from purifydocs.scanner.base import ScanResult
 
 
 def render_html(result: ScanResult) -> str:
@@ -28,7 +28,7 @@ def render_html(result: ScanResult) -> str:
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>PromptTrap Evidence: {html.escape(result.path)}</title>
+<title>PurifyDocs Evidence: {html.escape(result.path)}</title>
 <style>
   body {{ font-family: sans-serif; margin: 2rem; }}
   table {{ border-collapse: collapse; width: 100%; margin: 1rem 0; }}
@@ -40,7 +40,7 @@ def render_html(result: ScanResult) -> str:
 </style>
 </head>
 <body>
-<h1>PromptTrap Evidence Report</h1>
+<h1>PurifyDocs Evidence Report</h1>
 <p><strong>Path:</strong> <code>{html.escape(result.path)}</code></p>
 <p><strong>SHA-256:</strong> <code>{result.sha256}</code></p>
 <p><strong>Status:</strong>

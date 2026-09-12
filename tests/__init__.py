@@ -1,1 +1,1 @@
-"""Pytest unit and integration tests for PromptTrap."""
+"""Pytest unit and integration tests for PurifyDocs."""

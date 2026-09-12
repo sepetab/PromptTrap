@@ -1,9 +1,9 @@
-"""PromptTrap CLI entry point.
+"""PurifyDocs CLI entry point.
 
 Subcommands:
-    python -m prompttrap scan <file> --out <dir>
-    python -m prompttrap benchmark generate --clean N --attacked M
-    python -m prompttrap benchmark run --input <dir> --out <report.json>
+    python -m purifydocs scan <file> --out <dir>
+    python -m purifydocs benchmark generate --clean N --attacked M
+    python -m purifydocs benchmark run --input <dir> --out <report.json>
 """
 from __future__ import annotations
 
@@ -12,11 +12,11 @@ import json
 import sys
 from pathlib import Path
 
-from prompttrap.scanner import scan as run_scan
-from prompttrap.reports.html_report import write_html_report
-from prompttrap.reports.json_report import write_json_report
-from prompttrap.sanitizer.safe_payload import write_safe_outputs
-from prompttrap.scanner import get_scanner
+from purifydocs.scanner import scan as run_scan
+from purifydocs.reports.html_report import write_html_report
+from purifydocs.reports.json_report import write_json_report
+from purifydocs.sanitizer.safe_payload import write_safe_outputs
+from purifydocs.scanner import get_scanner
 
 
 def cmd_scan(args: argparse.Namespace) -> int:
@@ -53,7 +53,7 @@ def cmd_scan(args: argparse.Namespace) -> int:
 
 
 def cmd_benchmark_generate(args: argparse.Namespace) -> int:
-    from prompttrap.benchmark.generate_corpus import generate
+    from purifydocs.benchmark.generate_corpus import generate
 
     out = Path("data/generated")
     generate(out, args.clean, args.attacked, seed=args.seed)
@@ -63,7 +63,7 @@ def cmd_benchmark_generate(args: argparse.Namespace) -> int:
 
 
 def cmd_benchmark_run(args: argparse.Namespace) -> int:
-    from prompttrap.benchmark.metrics import run_benchmark
+    from purifydocs.benchmark.metrics import run_benchmark
 
     report = run_benchmark(Path(args.input))
     out = Path(args.out)
@@ -74,7 +74,7 @@ def cmd_benchmark_run(args: argparse.Namespace) -> int:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(prog="prompttrap", description="Document-safety scanner.")
+    parser = argparse.ArgumentParser(prog="purifydocs", description="Document-safety scanner.")
     sub = parser.add_subparsers(dest="command", required=True)
 
     p_scan = sub.add_parser("scan", help="Scan one file and write an output folder.")

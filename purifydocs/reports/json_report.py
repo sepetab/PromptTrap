@@ -4,7 +4,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from prompttrap.scanner.base import ScanResult
+from purifydocs.scanner.base import ScanResult
 
 
 def to_report_dict(result: ScanResult) -> dict:

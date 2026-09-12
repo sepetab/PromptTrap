@@ -21,8 +21,8 @@ from typing import Any
 
 from bs4 import BeautifulSoup, Comment, NavigableString, Tag
 
-from prompttrap.scanner.base import BaseScanner, Issue, ScanResult
-from prompttrap.scanner.txt import TXTScanner
+from purifydocs.scanner.base import BaseScanner, Issue, ScanResult
+from purifydocs.scanner.txt import TXTScanner
 
 # Font size (in px) at or below this is treated as invisible "tiny" text.
 TINY_FONT_PX = 3.0

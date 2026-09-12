@@ -11,7 +11,7 @@ import re
 import time
 from pathlib import Path
 
-from prompttrap.scanner.base import BaseScanner, Issue, ScanResult
+from purifydocs.scanner.base import BaseScanner, Issue, ScanResult
 
 # Zero-width / invisible characters that hide text from human eyes.
 ZERO_WIDTH_CHARS = {

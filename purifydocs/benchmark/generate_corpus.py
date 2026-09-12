@@ -1,5 +1,5 @@
 """
-Generate a labelled synthetic corpus for PromptTrap scanner testing.
+Generate a labelled synthetic corpus for PurifyDocs scanner testing.
 
 This script creates clean and intentionally manipulated documents with known ground truth.
 It is designed for Windows/macOS/Linux and uses pathlib instead of OS-specific paths.
@@ -131,7 +131,7 @@ def write_pdf_clean(path: Path, body: list[str], metadata_payload: str | None = 
     c = canvas.Canvas(str(path), pagesize=LETTER)
     width, height = LETTER
     c.setTitle(body[0][:120])
-    c.setAuthor("PromptTrap synthetic generator")
+    c.setAuthor("PurifyDocs synthetic generator")
     y = height - 72
     c.setFont("Helvetica-Bold", 14)
     c.drawString(72, y, body[0])
@@ -156,7 +156,7 @@ def add_pdf_metadata(path: Path, payload: str) -> None:
         writer.add_page(page)
     writer.add_metadata({
         "/Title": "Synthetic document",
-        "/Author": "PromptTrap synthetic generator",
+        "/Author": "PurifyDocs synthetic generator",
         "/Subject": payload,
         "/Keywords": payload,
     })
@@ -176,7 +176,7 @@ def write_pdf_attacked(path: Path, body: list[str], attack_type: str, payload: s
     c = canvas.Canvas(str(path), pagesize=LETTER)
     width, height = LETTER
     c.setTitle(body[0][:120])
-    c.setAuthor("PromptTrap synthetic generator")
+    c.setAuthor("PurifyDocs synthetic generator")
 
     y = height - 72
     c.setFont("Helvetica-Bold", 14)
@@ -218,7 +218,7 @@ def write_pdf_attacked(path: Path, body: list[str], attack_type: str, payload: s
 
 def write_docx_clean(path: Path, body: list[str]) -> None:
     doc = Document()
-    doc.core_properties.author = "PromptTrap synthetic generator"
+    doc.core_properties.author = "PurifyDocs synthetic generator"
     doc.add_heading(body[0], level=1)
     for line in body[1:]:
         doc.add_paragraph(line)
@@ -227,7 +227,7 @@ def write_docx_clean(path: Path, body: list[str]) -> None:
 
 def write_docx_attacked(path: Path, body: list[str], attack_type: str, payload: str) -> None:
     doc = Document()
-    doc.core_properties.author = "PromptTrap synthetic generator"
+    doc.core_properties.author = "PurifyDocs synthetic generator"
     doc.add_heading(body[0], level=1)
     first_para = doc.add_paragraph(body[1] if len(body) > 1 else "Synthetic document")
     anchor_run = first_para.runs[0]
@@ -305,7 +305,7 @@ def write_html_attacked(path: Path, body: list[str], attack_type: str, payload: 
     elif attack_type == "html_display_none":
         hidden = f'<div style="display:none">{html_escape(payload)}</div>'
     elif attack_type == "html_metadata_prompt":
-        meta = f'<meta name="prompttrap-test" content="{html_escape(payload)}">'
+        meta = f'<meta name="purifydocs-test" content="{html_escape(payload)}">'
     elif attack_type == "html_offscreen_text":
         hidden = f'<div style="position:absolute; left:-9999px; top:-9999px;">{html_escape(payload)}</div>'
     elif attack_type == "html_white_text":
@@ -509,7 +509,7 @@ def generate(out_dir: Path, clean_count: int, attacked_count: int, seed: int) ->
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Generate PromptTrap synthetic test corpus")
+    parser = argparse.ArgumentParser(description="Generate PurifyDocs synthetic test corpus")
     parser.add_argument("--out", type=Path, default=Path("data/generated"), help="Output directory")
     parser.add_argument("--clean", type=int, default=20, help="Number of clean documents")
     parser.add_argument("--attacked", type=int, default=40, help="Number of attacked documents")

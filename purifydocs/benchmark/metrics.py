@@ -5,9 +5,9 @@ import json
 from pathlib import Path
 from typing import Any
 
-from prompttrap.scanner import scan as run_scan
-from prompttrap.sanitizer.safe_text import safe_text
-from prompttrap.scanner.txt import TXTScanner
+from purifydocs.scanner import scan as run_scan
+from purifydocs.sanitizer.safe_text import safe_text
+from purifydocs.scanner.txt import TXTScanner
 
 
 def _resolve_doc_path(rel: str, corpus_dir: Path) -> Path:

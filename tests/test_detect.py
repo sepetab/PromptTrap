@@ -5,7 +5,7 @@ import pathlib
 import tempfile
 import unittest
 
-from prompttrap.scanner.detect import DOCX, HTML, PDF, TXT, UNKNOWN, detect_format, detect_mime
+from purifydocs.scanner.detect import DOCX, HTML, PDF, TXT, UNKNOWN, detect_format, detect_mime
 
 
 class DetectFormatTests(unittest.TestCase):
@@ -112,16 +112,16 @@ class DispatchByContentTests(unittest.TestCase):
         self._td.cleanup()
 
     def test_misnamed_pdf_routes_to_pdf_scanner(self):
-        from prompttrap.scanner import get_scanner
-        from prompttrap.scanner.pdf import PDFScanner
+        from purifydocs.scanner import get_scanner
+        from purifydocs.scanner.pdf import PDFScanner
 
         path = self.tmp / "resume.txt"
         path.write_bytes(b"%PDF-1.4\n%binary\n1 0 obj<</Type/Catalog>>endobj")
         self.assertIsInstance(get_scanner(path), PDFScanner)
 
     def test_misnamed_txt_routes_to_txt_scanner(self):
-        from prompttrap.scanner import get_scanner
-        from prompttrap.scanner.txt import TXTScanner
+        from purifydocs.scanner import get_scanner
+        from purifydocs.scanner.txt import TXTScanner
 
         path = self.tmp / "trick.pdf"
         path.write_text("plain text, not a pdf\n", encoding="utf-8")

@@ -6,14 +6,14 @@ import pathlib
 import tempfile
 import unittest
 
-from prompttrap.scanner import scan as run_scan
-from prompttrap.sanitizer.safe_payload import write_safe_outputs
-from prompttrap.reports.json_report import write_json_report
-from prompttrap.reports.html_report import write_html_report
-from prompttrap.scanner.txt import TXTScanner
+from purifydocs.scanner import scan as run_scan
+from purifydocs.sanitizer.safe_payload import write_safe_outputs
+from purifydocs.reports.json_report import write_json_report
+from purifydocs.reports.html_report import write_html_report
+from purifydocs.scanner.txt import TXTScanner
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-GEN = ROOT / "samples" / "PromptTrap_Data_Generator" / "prompttrap_data_starter" / "data_sample" / "generated"
+GEN = ROOT / "samples" / "PurifyDocs_Data_Generator" / "purifydocs_data_starter" / "data_sample" / "generated"
 
 ALL_TXT = list((GEN / "attacked").glob("*.txt")) + list((GEN / "clean").glob("*.txt"))
 ALL_PDF = list((GEN / "attacked").glob("*.pdf")) + list((GEN / "clean").glob("*.pdf"))

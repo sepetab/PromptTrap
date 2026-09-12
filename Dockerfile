@@ -17,10 +17,10 @@ RUN pip install --no-cache-dir uv
 WORKDIR /app
 
 COPY pyproject.toml uv.lock ./
-RUN uv sync --frozen --extra dev --extra viewer
+RUN uv sync --frozen --extra dev --extra viewer --extra api
 
 ENV PATH="/app/.venv/bin:$PATH"
 
 COPY . .
 
-CMD ["python", "-m", "prompttrap", "--help"]
+CMD ["python", "-m", "purifydocs", "--help"]

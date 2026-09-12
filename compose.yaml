@@ -4,13 +4,15 @@ services:
     working_dir: /app
     volumes:
       - .:/app
-    command: python -m prompttrap --help
+      - venv-data:/app/.venv
+    command: python -m purifydocs --help
 
   viewer:
     build: .
     working_dir: /app
     volumes:
       - .:/app
+      - venv-data:/app/.venv
     ports:
       - "8501:8501"
     command: >
@@ -19,3 +21,21 @@ services:
       --server.port=8501
       --server.headless=true
       --server.fileWatcherType=none
+
+  api:
+    build: .
+    working_dir: /app
+    volumes:
+      - .:/app
+      - venv-data:/app/.venv
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONPATH=/app
+    command: >
+      uvicorn apps.api.main:app
+      --host 0.0.0.0
+      --port 8000
+
+volumes:
+  venv-data:

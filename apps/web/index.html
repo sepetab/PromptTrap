@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PurifyDocs — Document Safety Scanner</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+</head>
+<body>
+
+<header>
+  <div class="container header-bar">
+    <a href="/" class="logo">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+        <path d="M14 2L4 6v8c0 6 10 12 10 12s10-6 10-12V6L14 2z" fill="#2E8B57" stroke="#1a5c3a" stroke-width="1.5"/>
+        <path d="M9 14l3.5 3.5L19 11" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>PurifyDocs</span>
+    </a>
+    <nav>
+      <a href="#scan">Scan</a>
+      <a href="#about">About</a>
+      <a href="#detectors">Detectors</a>
+      <a href="https://github.com/" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>Detect hidden manipulation in documents before AI reads them.</h1>
+    <p class="subtitle">
+      PurifyDocs scans PDF, DOCX, HTML, and TXT files for invisible text, prompt
+      injections, encoded payloads, and zero-width Unicode tricks — then
+      produces a sanitized, safe text output.
+    </p>
+    <div class="hero-actions">
+      <a href="#scan" class="btn btn-primary">Scan a Document</a>
+      <a href="#about" class="btn btn-secondary">Learn More</a>
+    </div>
+  </section>
+
+  <!-- Scan section -->
+  <section id="scan" class="card">
+    <h2>Scan a Document</h2>
+    <p class="muted">Upload a PDF, DOCX, HTML, or TXT file. Files are scanned server-side and never stored.</p>
+
+    <div class="drop-zone" id="dropZone">
+      <div class="drop-zone-content">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M24 6v26M14 18l10-12 10 12" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M8 30v8a4 4 0 004 4h24a4 4 0 004-4v-8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <p><strong>Click to browse</strong> or drag &amp; drop</p>
+        <p class="small muted">PDF, DOCX, HTML, TXT — max 50 MB</p>
+      </div>
+      <input type="file" id="fileInput" accept=".pdf,.docx,.html,.htm,.txt" hidden>
+    </div>
+
+    <!-- Loading state -->
+    <div id="scanLoading" class="scan-loading hidden">
+      <div class="spinner"></div>
+      <p>Scanning… this may take a few seconds for large PDFs.</p>
+    </div>
+
+    <!-- Error state -->
+    <div id="scanError" class="scan-error hidden"></div>
+
+    <!-- Results -->
+    <div id="scanResults" class="scan-results hidden"></div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="card">
+    <h2>What PurifyDocs Does</h2>
+    <p>
+      Documents fed to AI systems can contain hidden instructions invisible to
+      humans — white text on a white background, zero-width Unicode characters,
+      base64-encoded payloads, prompt injections in metadata or comments.
+      PurifyDocs detects and removes these manipulations.
+    </p>
+    <div class="feature-grid">
+      <div class="feature">
+        <h3>Multi-Format</h3>
+        <p>PDF, DOCX, HTML, and plain text — detected by content, not extension.</p>
+      </div>
+      <div class="feature">
+        <h3>Deep Detection</h3>
+        <p>25+ detectors covering hidden text, tiny fonts, off-page content, metadata, annotations, and more.</p>
+      </div>
+      <div class="feature">
+        <h3>Sanitized Output</h3>
+        <p>Clean, AI-safe text with detected payloads removed and verified by re-scan.</p>
+      </div>
+      <div class="feature">
+        <h3>Privacy First</h3>
+        <p>Files are scanned and immediately deleted. Nothing is stored or tracked.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Detectors -->
+  <section id="detectors" class="card">
+    <h2>Supported Detectors</h2>
+    <div class="detector-tabs">
+      <button class="tab-btn active" data-tab="pdf">PDF</button>
+      <button class="tab-btn" data-tab="docx">DOCX</button>
+      <button class="tab-btn" data-tab="html">HTML</button>
+      <button class="tab-btn" data-tab="general">General</button>
+    </div>
+    <div class="tab-content active" id="tab-pdf">
+      <table class="detector-table">
+        <thead><tr><th>Code</th><th>Detects</th></tr></thead>
+        <tbody>
+          <tr><td><code>ST-PDF-HIDDEN-TEXT-WHITE</code></td><td>White / near-white text invisible on the page</td></tr>
+          <tr><td><code>ST-PDF-TINY-TEXT</code></td><td>Font size too small to be human-visible</td></tr>
+          <tr><td><code>ST-PDF-OFFPAGE-TEXT</code></td><td>Text drawn outside the page media box</td></tr>
+          <tr><td><code>ST-PDF-METADATA-PROMPT</code></td><td>Prompt-like / base64 payload in PDF metadata</td></tr>
+          <tr><td><code>ST-PDF-ANNOTATION-PROMPT</code></td><td>Prompt-like / base64 payload in PDF annotations</td></tr>
+          <tr><td><code>ST-PDF-OCR-MISMATCH</code></td><td>OCR text differs substantially from extracted text</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-content" id="tab-docx">
+      <table class="detector-table">
+        <thead><tr><th>Code</th><th>Detects</th></tr></thead>
+        <tbody>
+          <tr><td><code>ST-DOCX-WHITE-TEXT</code></td><td>White / near-white run text</td></tr>
+          <tr><td><code>ST-DOCX-TINY-TEXT</code></td><td>Tiny run text (font size below threshold)</td></tr>
+          <tr><td><code>ST-DOCX-HIDDEN-RUN</code></td><td>Run marked with <code>&lt;w:vanish/&gt;</code></td></tr>
+          <tr><td><code>ST-DOCX-COMMENT-PROMPT</code></td><td>Prompt-like / encoded payload in document comments</td></tr>
+          <tr><td><code>ST-DOCX-HEADER-FOOTER-PROMPT</code></td><td>Hidden or prompt-like payload in headers/footers</td></tr>
+          <tr><td><code>ST-DOCX-METADATA-PROMPT</code></td><td>Prompt-like / encoded payload in core metadata</td></tr>
+          <tr><td><code>ST-DOCX-ALT-TEXT-PROMPT</code></td><td>Payload in drawing alt text</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-content" id="tab-html">
+      <table class="detector-table">
+        <thead><tr><th>Code</th><th>Detects</th></tr></thead>
+        <tbody>
+          <tr><td><code>ST-HTML-HIDDEN-DISPLAY</code></td><td>Element hidden with <code>display:none</code></td></tr>
+          <tr><td><code>ST-HTML-HIDDEN-VISIBILITY</code></td><td>Element hidden with <code>visibility:hidden</code></td></tr>
+          <tr><td><code>ST-HTML-HIDDEN-OPACITY</code></td><td>Element hidden with <code>opacity:0</code></td></tr>
+          <tr><td><code>ST-HTML-WHITE-TEXT</code></td><td>White / near-white text on light background</td></tr>
+          <tr><td><code>ST-HTML-TINY-TEXT</code></td><td>Tiny font-size text</td></tr>
+          <tr><td><code>ST-HTML-OFFSCREEN-TEXT</code></td><td>Text positioned off-screen via large negative offsets</td></tr>
+          <tr><td><code>ST-HTML-COMMENT-PROMPT</code></td><td>Prompt-like / encoded payload in HTML comments</td></tr>
+          <tr><td><code>ST-HTML-METADATA-PROMPT</code></td><td>Payload in <code>&lt;meta&gt;</code> tags or <code>&lt;title&gt;</code></td></tr>
+          <tr><td><code>ST-HTML-ALT-TEXT-PROMPT</code></td><td>Payload in <code>alt</code> / <code>title</code> attributes</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-content" id="tab-general">
+      <table class="detector-table">
+        <thead><tr><th>Code</th><th>Detects</th></tr></thead>
+        <tbody>
+          <tr><td><code>ST-GEN-ZERO-WIDTH</code></td><td>Zero-width Unicode characters hiding text</td></tr>
+          <tr><td><code>ST-GEN-BASE64-INSTRUCTION</code></td><td>Base64-encoded instruction payload</td></tr>
+          <tr><td><code>ST-GEN-PROMPT-LIKE-INSTRUCTION</code></td><td>Prompt-injection phrasing in document text</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <p>PurifyDocs — detect and neutralize prompt injection in documents.</p>
+  </div>
+</footer>
+
+<script src="js/config.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

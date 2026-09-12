@@ -6,8 +6,8 @@ import json
 from pathlib import Path
 from typing import Any
 
-from prompttrap.scanner.base import ScanResult
-from prompttrap.sanitizer.safe_text import safe_text
+from purifydocs.scanner.base import ScanResult
+from purifydocs.sanitizer.safe_text import safe_text
 
 
 def safe_payload(result: ScanResult) -> dict[str, Any]:

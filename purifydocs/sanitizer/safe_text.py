@@ -6,9 +6,9 @@ from __future__ import annotations
 
 import re
 
-from prompttrap.scanner.base import ScanResult
+from purifydocs.scanner.base import ScanResult
 
-from prompttrap.scanner.txt import ZERO_WIDTH_CHARS, BASE64_RE
+from purifydocs.scanner.txt import ZERO_WIDTH_CHARS, BASE64_RE
 
 
 def safe_text(result: ScanResult) -> str:
@@ -33,7 +33,7 @@ def safe_text(result: ScanResult) -> str:
     # 3. remove prompt-like lines. Re-detect on the stripped text because
     #    zero-width removal can reveal previously hidden instructions whose
     #    stored evidence (with zero-widths) won't match the clean line.
-    from prompttrap.scanner.txt import PROMPT_LIKE_PATTERNS
+    from purifydocs.scanner.txt import PROMPT_LIKE_PATTERNS
 
     kept = []
     for line in text.splitlines():

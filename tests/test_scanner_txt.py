@@ -6,15 +6,15 @@ import pathlib
 import tempfile
 import unittest
 
-from prompttrap.scanner import scan as run_scan
-from prompttrap.scanner.txt import TXTScanner
-from prompttrap.sanitizer.safe_text import safe_text
-from prompttrap.sanitizer.safe_payload import safe_payload, write_safe_outputs
-from prompttrap.reports.json_report import write_json_report
-from prompttrap.reports.html_report import write_html_report
+from purifydocs.scanner import scan as run_scan
+from purifydocs.scanner.txt import TXTScanner
+from purifydocs.sanitizer.safe_text import safe_text
+from purifydocs.sanitizer.safe_payload import safe_payload, write_safe_outputs
+from purifydocs.reports.json_report import write_json_report
+from purifydocs.reports.html_report import write_html_report
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-GEN = ROOT / "samples" / "PromptTrap_Data_Generator" / "prompttrap_data_starter" / "data_sample" / "generated"
+GEN = ROOT / "samples" / "PurifyDocs_Data_Generator" / "purifydocs_data_starter" / "data_sample" / "generated"
 ATTACKED = GEN / "attacked"
 CLEAN = GEN / "clean"
 

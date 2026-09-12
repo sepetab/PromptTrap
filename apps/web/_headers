@@ -1,0 +1,1 @@
+/* X-Forwarded-* headers are not needed for static hosting on Cloudflare Pages. */
